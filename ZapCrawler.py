@@ -36,6 +36,10 @@ class ZapCrawler():
              'url': SHEET_LINK
             ,'tab': 'log'
         }
+        ,'debug_log':{
+             'url': SHEET_LINK
+            ,'tab': 'debug_log'
+        }
     }
     
     MAX_RETRIES = 5
@@ -147,8 +151,9 @@ class ZapCrawler():
         
     def get_attr(self,_elem,_attr):
         try:
-            elems = _elem.find_all('div',{'class': 'simple-card__actions'})[0].find_all('ul')[0].find_all('li',{'class':_attr})[0].find_all('span')
-            return elems[1].text.replace('\n','').strip() if(len(elems)> 0) else ''
+            elems = _elem.find_all('p',{'class': 'card__amenity', 'itemprop': _attr}) if _attr != None\
+                    else _elem.find_all('p',{'class': 'card__amenity'}, itemprop=None)       # Upwork - Vargas update (The website html have changed)
+            return elems[0].text.replace('\n','').strip() if(len(elems)> 0) else ''          # Upwork - Vargas update (The website html have changed)
         except Exception as e:
             return ''
 
@@ -159,14 +164,14 @@ class ZapCrawler():
     
     def get_address(self,_elem):
         try:
-            return _elem.find_all('h2',{'class': 'simple-card__address'})[0].text 
+            return f"{_elem.find_all('h2',{'class': 'card__address'})[0].text.strip()} - {_elem.find_all('p',{'class': 'card__street'})[0].text.strip()}"  # Upwork - Vargas update (The website html have changed)
         except Exception as e:
             return ''
 
         
     def get_description(self,_elem):
         try:
-            res = _elem.find_all('div',{'class':'simple-card__description'})
+            res = _elem.find_all('p',{'class':'card__description'})     # Upwork - Vargas update (The website html have changed)
             return res[0].text if len(res) > 0 else ''
         except Exception as e:
             return ''
@@ -182,7 +187,7 @@ class ZapCrawler():
         
     def get_price(self,_elem):
         try:
-            res = _elem.find_all('p',{'class':'simple-card__price'})
+            res = _elem.find_all('div',{'class':'listing-price'})[0].find_all('p')      # Upwork - Vargas update (The website html have changed)
             return res[0].text.strip() if len(res) > 0 else ''
         except Exception as e:
             return ''
@@ -190,8 +195,11 @@ class ZapCrawler():
         
     def get_image(self,_elem):
         try:
-            res = _elem.find_all('div',{'class':'carousel__wrapper'})
-            return res[0].find('img')['src'] if len(res) > 0 else ''
+            res = _elem.find_all('ul',{'class':'l-carousel-image__list'})[0].find_all('img')        # Upwork - Vargas update (The website html have changed)
+            images = []
+            for image in res:                                                                       # Upwork - Vargas update (Save all images instead of first only)
+                images.append(image['src'])
+            return json.dumps(images) if len(images) > 0 else ''
         except Exception as e:
             return ''
     
@@ -224,7 +232,8 @@ class ZapCrawler():
     
     
     def get_page_info(self, search_input, _retry=0): 
-        url = f"https://www.zapimoveis.com.br/{search_input['purchase_type']}/{search_input['place_type']}/{search_input['address']}?pagina={search_input['page']}&ordem=Valor&transacao=Venda"
+        # url = f"https://www.zapimoveis.com.br/{search_input['purchase_type']}/{search_input['place_type']}/{search_input['address']}?pagina={search_input['page']}&ordem=Valor&transacao=Venda"
+        url = f"https://www.zapimoveis.com.br/{search_input['purchase_type']}/{search_input['place_type']}/{search_input['address']}?pagina={search_input['page']}&ordem=Menor%20preço&transacao=venda"     # Upwork - Vargas update (ordem=Valor > ordem=Menor%20preço)
 
         # Get Data from URL
         res = requests.get(url, headers=self.headers, timeout=7)
@@ -235,23 +244,23 @@ class ZapCrawler():
         partial_listings = []
         
         if not _res:
-            self.log(f"res is None for page {_page}")
+            self.log(f"res is None for page {_search_input}")                       # Upwork - Vargas update (_page > _search_input)
         else:
-            soup = bs4.BeautifulSoup(_res.text)
-        
+            soup = bs4.BeautifulSoup(_res.text, features="html.parser")
+            
             # Get Data
-            card_containers = soup.find_all('div',{'class': 'card-container'})
+            card_containers = soup.find_all('a',{'class': 'result-card'})           # Upwork - Vargas update (The website html have changed)
             self.log(f'Total find: {len(card_containers)}',2)
 
             for card in card_containers:
                 partial_listings.append({
                      'timestamp': _search_input['timestamp']
                     ,'link': self.get_link(card)
-                    ,'area': self.get_attr(card,'js-areas')
-                    ,'bedrooms': self.get_attr(card,'js-bedrooms')
-                    ,'parking': self.get_attr(card,'js-parking-spaces')
-                    ,'bathrooms': self.get_attr(card,'js-bathrooms')
-                    ,'address': self.get_address(card).strip()
+                    ,'area': self.get_attr(card,'floorSize')                        # Upwork - Vargas update (The website html have changed)
+                    ,'bedrooms': self.get_attr(card,'numberOfRooms')                # Upwork - Vargas update (The website html have changed)
+                    ,'parking': self.get_attr(card,None)                            # Upwork - Vargas update (The website html have changed)
+                    ,'bathrooms': self.get_attr(card, 'numberOfBathroomsTotal')     # Upwork - Vargas update (The website html have changed)
+                    ,'address': self.get_address(card)                              # Upwork - Vargas update (The website html have changed)
                     ,'tag': self.get_tag(card)
                     ,'description': self.get_description(card)
                     ,'price': self.get_price(card)
@@ -285,6 +294,21 @@ class ZapCrawler():
                                  'results': _total_listings,
                                  'status': _status}]).astype(str)
             self.gs.save(self.SHEET_INFO['log'],log,_append=True)
+        except Exception as e:
+            sts += f' > Error on saving result: {e}'
+            
+        return sts
+    
+    def log_debug_results(self, _t0, _address, _final_page, _total_listings, _status):
+        sts = ''
+        try:
+            # Log Result
+            log = pd.DataFrame([{'timestamp': _t0,
+                                 'address': _address,
+                                 'pages': _final_page,
+                                 'results': _total_listings,
+                                 'status': _status}]).astype(str)
+            self.gs.save(self.SHEET_INFO['debug_log'],log,_append=True)
         except Exception as e:
             sts += f' > Error on saving result: {e}'
             
@@ -330,7 +354,9 @@ class ZapCrawler():
             status = f'Error on executing: {e}'
             self.log(status)
 
-        status += self.log_results(t0, address, final_page, len(listings), status)
+        # address|pages|results|status|timestamp
+        # status += self.log_results(address, final_page, len(listings), status, t0)
+        status += self.log_debug_results(address, final_page, len(listings), status, t0)
         
         return status
     
