@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="icon" href="favicon.ico"/>
+        <!-- <link rel="apple-touch-icon" href="favicon.ico" /> -->
+        <title>ZapCrawler.py</title>
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="830850685303-nculaj6u1guqj27b3shqoiv1di97q1u0.apps.googleusercontent.com">
+        <link rel="stylesheet" type="text/css" href="static/style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+
+        <header id="header" class="header header--fixed hide-from-print" role="banner">
+            <div class="container" >
+
+                <nav id="nav" class="nav-wrapper" role="navigation">
+                    <ul class="nav nav--main">
+                        <li class="nav__item ">
+                            <a class="header__link subdued" href="https://github.com/franciscomvargas/zapcrawler">
+                                <span aria-hidden="true" class="icon icon--github"></span>
+                                <span class="complimentary push--left">GitHub</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <a href="http://localhost:8880/" class="brand header__link">
+                    <b class="brand__forename">ZapCrawler</b><b class="brand__surname">.py</b>
+                </a>
+            </div>
+        </header>
+        
+        <article>
+            <header class="feature">
+                <div class="container container--wide feature-title">
+                    <h3 class="feature-title__title headroom-title">
+                        WebCrawl <a href="https://www.zapimoveis.com.br/">zapimoveis</a>
+                    </h3>
+                </div>
+            </header>
+            <!-- <img src="favicon.ico" alt="logo" width="80" height="auto" style="position: absolute; top: 80px;"> -->
+            
+            <div class="container block main" role="main">
+                <!-- UI Search -->
+                <div class="downloads">
+                    <!-- Business Type -->
+                    <div class="grid">
+                        <div class="grid__item one-half" >
+                            <h2>Tipo de Negócio</h2>
+                        </div>
+                        <div class="grid__item one-half" style="float:right;">
+                            <button type="button" id="bbusinessype">&#8679;</button>
+                        </div>
+                    </div>
+                    <div id="ibusinessype">
+                        <input type="radio" id="ibuy" name="businesstype" value="SALE" checked>
+                        <label for="ibuy">Comprar</label><br>
+                        <input type="radio" id="irental" name="businesstype" value="RENTAL">
+                        <label for="irental">Alugar</label><br><br>
+                    </div>
+                    
+                    <!-- Unit Type -->
+                    <div class="grid">
+                        <div class="grid__item one-half" >
+                            <h2>Tipo de Imóvel</h2>
+                        </div>
+                        <div class="grid__item one-half" style="float:right;">
+                            <button type="button" id="bunitype">&#8679;</button>
+                        </div>
+                    </div>
+                    <div id="iunitype">
+                        <select id="sunitType" name="nlocation">
+                            <option name="ANY">Todos os Resultados</option>
+                            <optgroup label="Residencial">
+                                <option name="RESIDENTIAL-APARTMENT">Apartamento</option>
+                                <option name="RESIDENTIAL-STUDIO">Studio</option>
+                                <option name="RESIDENTIAL-KITNET">Kitnet</option>
+                                <option name="RESIDENTIAL-HOME">Casa</option>
+                                <option name="RESIDENTIAL-TWO_STORY_HOUSE">Sobrado</option>
+                                <option name="RESIDENTIAL-CONDOMINIUM">Casa de Condomínio</option>
+                                <option name="RESIDENTIAL-VILLAGE_HOUSE">Casa de Vila</option>
+                                <option name="RESIDENTIAL-PENTHOUSE">Cobertura</option>
+                                <option name="RESIDENTIAL-FLAT">Flat</option>
+                                <option name="RESIDENTIAL-LOFT">Loft</option>
+                                <option name="RESIDENTIAL-ALLOTMENT_LAND">Terreno / Lote / Condomínio</option>
+                                <option name="RESIDENTIAL-FARM">Fazenda / Sítio / Chácara</option>
+                            </optgroup>
+                            <optgroup label="Comercial">
+                                <option name="COMMERCIAL-BUSINESS">Loja / Salão / Ponto Comercial</option>
+                                <option name="COMMERCIAL-OFFICE">Conjunto Comercial / Sala</option>
+                                <option name="COMMERCIAL-COMMERCIAL_PROPERTY">Casa Comercial</option>
+                                <option name="COMMERCIAL-HOTEL">Hotel / Motel / Pousada</option>
+                                <option name="COMMERCIAL-FLOOR">Andar / Laje Corporativa</option>
+                                <option name="COMMERCIAL-BUILDING">Prédio Inteiro</option>
+                                <option name="COMMERCIAL-ALLOTMENT_LAND">Terenos / Lotes Comerciais</option>
+                                <option name="COMMERCIAL-SHED_DEPOSIT_WAREHOUSE">Galpão / Depósito / Armazém</option>
+                                <option name="COMMERCIAL-PARKING_SPACE">Garagem</option>
+                            </optgroup>
+                        </select><br><br>
+                    </div>
+                    
+                    <!-- Unit Status -->
+                    <div class="grid">
+                        <div class="grid__item one-half" >
+                            <h2>Estado do Imóvel</h2>
+                        </div>
+                        <div class="grid__item one-half" style="float:right;">
+                            <button type="button" id="bunitsatus">&#8679;</button>
+                        </div>
+                    </div>
+                    <div id="iunitsatus">
+                        <input type="radio" name="unitsatus" id="iused" value="USED" checked>
+                        <label for="iused">Usado</label><br>
+                        <input type="radio" name="unitsatus" id="idevelopment" value="DEVELOPMENT">
+                        <label for="idevelopment">Em Lançamento</label>
+                        <div id="constructionstatus" style="text-align: right;"></div><br>
+                    </div>
+
+                    <!-- Search Location -->
+                    <div class="grid">
+                        <div class="grid__item one-half" >
+                            <h2><label for="isearch" id="lsearch">Localização</label></h2>
+                        </div>
+                        <div class="grid__item one-half" style="float:right;">
+                            <button type="button" id="bsearch">&#8679;</button>
+                        </div>
+                    </div>
+                    <div id="dsearch">
+                        <input type="search" id="isearch" placeholder="Busque por rua, bairro, cidade, imobiliária ou condomínio"  size="67em">
+                        <select id="locations" name="nlocation" hidden></select><br><br>
+                    </div>
+
+                    <!-- CRAWL Request -->
+                    <div id="crawl_ui" hidden>
+                        <!-- CRAWL Definitions -->
+                        <div class="grid">
+                            <div class="grid__item one-half" >
+                                <h2>Definições de Crawler</h2>
+                            </div>
+                            <div class="grid__item one-half" style="float:right;">
+                                <button type="button" id="bcrawldef">&#8679;</button>
+                            </div>
+                        </div>
+                        <div id="dcrawldef">
+                            <label for="iunitsammount">Quantidade de Imóveis para extrair: </label>
+                            <input type="number" id="iunitsammount" min="0" max="" value="0"><br><br>
+                        </div>
+
+                        <!-- GSheets Definitions -->
+                        <div class="grid">
+                            <div class="grid__item one-half" >
+                                <h2>Definições de Google Sheet</h2>
+                            </div>
+                            <div class="grid__item one-half" style="float:right;">
+                                <button type="button" id="bgsheets">&#8679;</button>
+                            </div>
+                        </div>
+                        <div id="dgsheets">
+                            <label for="igsheetname">Nome do Sheet: </label>
+                            <input type="search" id="igsheetname" size="67em"><br><br>
+
+                            <input type="radio" id="ipublic" name="sheetshare" value="PUBLIC" checked>
+                            <label for="ipublic">Público</label><br>
+                            <input type="radio" id="iprivate" name="sheetshare" value="PRIVATE">
+                            <label for="iprivate">Privado</label><br>
+                            <div id="privateshare" hidden>
+                                <input type="text" id="iemailshare" placeholder="user1@gmail.com, user2@domain.com, user3@yahoo.com" size="67em"><br>
+                            </div><br>
+                        </div>
+
+
+                        <div class="grid">
+                            <div class="grid__item one-half" >
+                                <input type="submit" value="Run" class="sharing__button btn btn--secondary btn--full" id="isubmit">
+                            </div>
+                            <div class="grid__item one-half" style="width: 32%; float:right;">
+                                <button type="button" id="icopy" class="btn--primary" style="border-radius:.25em; 
+                                    border:0.5px solid rgba(41,47,54,0.2);
+                                    -webkit-transition:background-color .2s linear; 
+                                    -moz-transition:background-color .2s linear;
+                                    -o-transition:background-color .2s linear;
+                                    transition:background-color .2s linear" 
+                                    hidden>
+                                        <img src="copy.svg" alt="copy" heigh="auto" width="17%">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- the result of the search will be rendered inside this div -->
+                <pre class="language-javascript"><code id="result">
+                </code></pre><br><br>
+            </div>
+        </article>
+        
+        <div class="footer">
+            <p>© 2023 - Francisco Vargas</p>
+        </div>
+
+        <script>
+            // Unit Type Handler
+            let unitType_dic = {
+                RESIDENTIAL:{
+                    APARTMENT:{
+                        unitTypes: "APARTMENT",
+                        unitTypesV3: "APARTMENT",
+                        unitSubTypes: "UnitSubType_NONE,DUPLEX,TRIPLEX",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    STUDIO:{
+                        unitTypes: "APARTMENT",
+                        unitTypesV3: "UnitType_NONE",
+                        unitSubTypes: "STUDIO",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    KITNET:{
+                        unitTypes: "APARTMENT",
+                        unitTypesV3: "KITNET",
+                        unitSubTypes: "KITNET",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    HOME:{
+                        unitTypes: "HOME",
+                        unitTypesV3: "HOME",
+                        unitSubTypes: "UnitSubType_NONE,TWO_STORY_HOUSE,SINGLE_STOREY_HOUSE,KITNET",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    TWO_STORY_HOUSE:{
+                        unitTypes: "HOME",
+                        unitTypesV3: "TWO_STORY_HOUSE",
+                        unitSubTypes: "TWO_STORY_HOUSE",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    CONDOMINIUM:{
+                        unitTypes: "HOME",
+                        unitTypesV3: "CONDOMINIUM",
+                        unitSubTypes: "CONDOMINIUM",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    VILLAGE_HOUSE:{
+                        unitTypes: "HOME",
+                        unitTypesV3: "VILLAGE_HOUSE",
+                        unitSubTypes: "VILLAGE_HOUSE",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    PENTHOUSE:{
+                        unitTypes: "APARTMENT",
+                        unitTypesV3: "PENTHOUSE",
+                        unitSubTypes: "PENTHOUSE",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    FLAT:{
+                        unitTypes: "APARTMENT",
+                        unitTypesV3: "FLAT",
+                        unitSubTypes: "FLAT",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    LOFT:{
+                        unitTypes: "APARTMENT",
+                        unitTypesV3: "LOFT",
+                        unitSubTypes: "LOFT",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    ALLOTMENT_LAND:{
+                        unitTypes: "ALLOTMENT_LAND",
+                        unitTypesV3: "RESIDENTIAL_ALLOTMENT_LAND",
+                        unitSubTypes: "UnitSubType_NONE,CONDOMINIUM,VILLAGE_HOUSE",
+                        usageTypes: "RESIDENTIAL"
+                    },
+                    FARM:{
+                        unitTypes: "FARM",
+                        unitTypesV3: "FARM",
+                        unitSubTypes: "UnitSubType_NONE,CONDOMINIUM",
+                        usageTypes: "RESIDENTIAL"
+                    }
+                },
+                COMMERCIAL:{
+                    BUSINESS:{
+                        unitTypes: "BUSINESS",
+                        unitTypesV3: "BUSINESS",
+                        unitSubTypes: "UnitSubType_NONE,RETAIL_CENTER,GALLERY,SHOPPING",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    OFFICE:{
+                        unitTypes: "OFFICE",
+                        unitTypesV3: "OFFICE",
+                        unitSubTypes: "UnitSubType_NONE,CLINIC,OFFICE",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    COMMERCIAL_PROPERTY:{
+                        unitTypes: "HOME",
+                        unitTypesV3: "COMMERCIAL_PROPERTY",
+                        unitSubTypes: "UnitSubType_NONE",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    HOTEL:{
+                        unitTypes: "HOTEL",
+                        unitTypesV3: "HOTEL",
+                        unitSubTypes: "UnitSubType_NONE",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    FLOOR:{
+                        unitTypes: "OFFICE",
+                        unitTypesV3: "FLOOR",
+                        unitSubTypes: "FLOOR",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    BUILDING:{
+                        unitTypes: "BUILDING",
+                        unitTypesV3: "COMMERCIAL_BUILDING",
+                        unitSubTypes: "UnitSubType_NONE",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    ALLOTMENT_LAND:{
+                        unitTypes: "ALLOTMENT_LAND",
+                        unitTypesV3: "COMMERCIAL_ALLOTMENT_LAND",
+                        unitSubTypes: "UnitSubType_NONE",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    SHED_DEPOSIT_WAREHOUSE:{
+                        unitTypes: "SHED_DEPOSIT_WAREHOUSE",
+                        unitTypesV3: "SHED_DEPOSIT_WAREHOUSE",
+                        unitSubTypes: "UnitSubType_NONE",
+                        usageTypes: "COMMERCIAL"
+                    },
+                    PARKING_SPACE:{
+                        unitTypes: "PARKING_SPACE",
+                        unitTypesV3: "PARKING_SPACE",
+                        unitSubTypes: "UnitSubType_NONE",
+                        usageTypes: "COMMERCIAL"
+                    }
+                }
+            } 
+
+
+            // Fold Search Details
+            // > Business Type
+            $( "#bbusinessype" ).click(function() {
+                if($( "#ibusinessype" ).attr( "hidden" )){
+                    $( "#ibusinessype").attr("hidden",false);
+                    $( "#bbusinessype" ).empty().append( "&#8679;" );
+                }
+                else{
+                    $( "#ibusinessype").attr("hidden",true);
+                    $( "#bbusinessype" ).empty().append( "&#8681;" );
+                }
+            });
+            // > Unit Type
+            $( "#bunitype" ).click(function() {
+                if($( "#iunitype" ).attr( "hidden" )){
+                    $( "#iunitype").attr("hidden",false);
+                    $( "#bunitype" ).empty().append( "&#8679;" );
+                }
+                else{
+                    $( "#iunitype").attr("hidden",true);
+                    $( "#bunitype" ).empty().append( "&#8681;" );
+                }
+            });
+            // > Unit Status
+            $( "#bunitsatus" ).click(function() {
+                if($( "#iunitsatus" ).attr( "hidden" )){
+                    $( "#iunitsatus").attr("hidden",false);
+                    $( "#bunitsatus" ).empty().append( "&#8679;" );
+                }
+                else{
+                    $( "#iunitsatus").attr("hidden",true);
+                    $( "#bunitsatus" ).empty().append( "&#8681;" );
+                }
+            });
+            // > Search Location
+            $( "#bsearch" ).click(function() {
+                if($( "#dsearch" ).attr( "hidden" )){
+                    $( "#dsearch").attr("hidden",false);
+                    $( "#bsearch" ).empty().append( "&#8679;" );
+                }
+                else{
+                    $( "#dsearch").attr("hidden",true);
+                    $( "#bsearch" ).empty().append( "&#8681;" );
+                }
+            });
+            // > Crawl Definitions
+            $( "#bcrawldef" ).click(function() {
+                if($( "#dcrawldef" ).attr( "hidden" )){
+                    $( "#dcrawldef").attr("hidden",false);
+                    $( "#bcrawldef" ).empty().append( "&#8679;" );
+                }
+                else{
+                    $( "#dcrawldef").attr("hidden",true);
+                    $( "#bcrawldef" ).empty().append( "&#8681;" );
+                }
+            });
+            // > Crawl Definitions
+            $( "#bgsheets" ).click(function() {
+                if($( "#dgsheets" ).attr( "hidden" )){
+                    $( "#dgsheets").attr("hidden",false);
+                    $( "#bgsheets" ).empty().append( "&#8679;" );
+                }
+                else{
+                    $( "#dgsheets").attr("hidden",true);
+                    $( "#bgsheets" ).empty().append( "&#8681;" );
+                }
+            });
+
+
+            // Attach a Construction Status when Development is selected
+            $( "#idevelopment" ).click(function() {
+                if( $( "#idevelopment" ).is(':checked') ){
+                    var $html_element = `<label for="iplan">Na planta </label>
+                        <input type="radio" id="iplan" name="constructionstatus" value="PLAN_ONLY"><br>
+                        <label for="iconstruction">Em construção </label>
+                        <input type="radio" id="iconstruction" name="constructionstatus" value="UNDER_CONSTRUCTION"><br>
+                        <label for="ibuilt">Pronto para morar </label>
+                        <input type="radio" id="ibuilt" name="constructionstatus" value="BUILT"><br>
+                        <label for="iany">Qualquer um </label>
+                        <input type="radio" id="iany" name="constructionstatus" value="PLAN_ONLY,UNDER_CONSTRUCTION,BUILT" checked><br>`
+                    $( "#constructionstatus" ).empty().append( $html_element )
+                }
+            });
+            $( "#iused" ).click(function() {
+                if( $( "#iused" ).is(':checked') ){
+                    $( "#constructionstatus" ).empty().append( "" )
+                }
+            });
+
+            // Attach a Construction Status when Development is selected
+            $( "#iprivate" ).click(function() {
+                if( $( "#iprivate" ).is(':checked') ){
+                    $( "#privateshare" ).attr("hidden",false);
+                }
+            });
+            $( "#ipublic" ).click(function() {
+                if( $( "#ipublic" ).is(':checked') ){
+                    $( "#privateshare" ).attr("hidden",true);
+                }
+            });
+            
+            
+
+            // Get Locations Result
+            function delay(callback, ms) {
+                var timer = 0;
+                return function() {
+                    var context = this, args = arguments;
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                    callback.apply(context, args);
+                    }, ms || 0);
+                };
+            }
+            var last_locations_dic = {}
+            var last_query = ""
+            $( "#isearch" ).keyup(
+                delay(
+                    function (e) {
+                        if(this.value != "" && this.value!=last_query){
+                            // Hide Crawl Selection
+                            $( "#crawl_ui" ).attr("hidden",true);
+                            last_query = this.value
+                            $( "#result" ).empty().append( "Searching for locations...\n\n" );
+                            // Request locations from API
+                            let payload = {
+                                query: this.value,
+                                businessType: $( 'input[name="businesstype"]:checked' ).val(),
+                                listingType: $( "#idevelopment" ).is(':checked') ? "DEVELOPMENT" : "USED",
+                                constructionStatus: $( "#idevelopment" ).is(':checked') ? $( 'input[name="constructionstatus"]:checked' ).val(): "ConstructionStatus_NONE"
+                            }
+                            // console.log('Locations Request Payload:', JSON.stringify(payload, null, 2));
+                            $( "#locations").attr("hidden",true);
+                            $.ajax({
+                                type: "POST",
+                                url: "/api/locations",
+                                data: JSON.stringify(payload),
+                                contentType: "application/json; charset=utf-8",
+                                traditional: true,
+                                dataType: "json",
+                                // Response locations from API - `response`
+                                success: function( response ) {
+                                    $( "#result" ).empty().append( "Select location from `Resultados`!\n\n" );
+                                    // console.log('Locations Response:');
+                                    // console.log(response);
+                                    let header_printed = false;
+                                    let html_datalist = ""
+                                    for (let key in response){
+                                        // Datalist Group
+                                        if(response[key]['totalCount'] == 0){
+                                            continue;
+                                        }
+                                        if(!header_printed){
+                                            header_printed = true;
+                                            html_datalist = '\n<option selected disabled>Resultados</option>\n';
+                                        }
+                                        html_datalist += '<optgroup label="' + key +'">\n';
+                                        let mem_desc = []
+                                        for (let location_id in response[key]['locations']){
+                                            let description = response[key]['locations'][location_id]['description'];
+                                            if(mem_desc.indexOf(description) > -1){
+                                                // console.log("NOT ->", description)
+                                                continue
+                                            }
+                                            else{
+                                                // console.log("YES ->", description)
+                                                mem_desc.push(description)
+                                                html_datalist += '<option name="' + location_id + '">' + description + '</option>\n';
+                                            }
+                                        }
+                                        html_datalist += '</optgroup>\n'
+                                    }
+                                    last_locations_dic = response;
+                                    if(html_datalist != ""){
+                                        // console.log('Locations Html Options:');
+                                        // console.log(html_datalist);
+                                        $( "#locations" ).empty().append( html_datalist );
+                                        $( "#locations").removeAttr("hidden");
+                                    }
+                                    else{
+                                        $( "#result" ).empty().append( "No results found for `" + last_query +"`\nTry another location\n" );
+                                    }
+                                    
+                                    
+                                }
+                            });
+                        }
+                    },
+                    1200
+                )
+            );
+            
+            
+            // Get Properties INFO
+            var last_payload = {}
+            $('#locations').change(function(){
+                // Hide Crawl Selection
+                $( "#crawl_ui" ).attr("hidden",true);
+                // Handle Address Type
+                let location_idx = $('#locations').find(":selected").attr( "name" )
+                // console.log("Location ID:", location_idx);
+                let addressType_pt = location_idx.split("-")[0]
+                addressType = {
+                    "Cidades": "city",
+                    "Bairros": "neighborhood",
+                    "Ruas": "street"
+                }[addressType_pt]
+
+                // Handle Unit Type
+                let unit_type_idx = $('#sunitType').find(":selected").attr( "name" )
+                if(unit_type_idx == "ANY"){
+                    unit_type = {}
+                }
+                else{
+                    unit_type_split = unit_type_idx.split("-")
+                    unit_type = unitType_dic[unit_type_split[0]][unit_type_split[1]]
+                }
+                // console.log("unitType `" + unit_type_idx +"` Data:", JSON.stringify(unit_type, null, 2));
+
+                // console.log("Location Group:", addressType);
+                $( "#result" ).empty().append( "Gathering Linstings INFO...\n\n" );
+                let location_data = last_locations_dic[addressType_pt]["locations"][location_idx]
+                // console.log("Location Data:", JSON.stringify(location_data, null, 2));
+                // Request locations from API
+                let payload = {
+                    categoryPage: location_data["uriCategory"]["page"],
+                    businessType: $( 'input[name="businesstype"]:checked' ).val(),
+                    listingType: $( "#idevelopment" ).is(':checked') ? "DEVELOPMENT" : "USED",
+                    constructionStatus: $( "#idevelopment" ).is(':checked') ? $( 'input[name="constructionstatus"]:checked' ).val(): "ConstructionStatus_NONE",
+                    addressType: addressType,
+                    addressStreet: "address" in location_data && "street" in location_data["address"] ? location_data["address"]["street"] : "",
+                    addressNeighborhood: "neighborhood" in location_data["address"] ? location_data["address"]["neighborhood"] : "",
+                    addressZone: "address" in location_data && "zone" in location_data["address"] ? location_data["address"]["zone"] : "",
+                    addressCity: "address" in location_data && "city" in location_data["address"] ? location_data["address"]["city"] : "",
+                    addressState: "address" in location_data && "state" in location_data["address"] ? location_data["address"]["state"] : "",
+                    addressLocationId: "address" in location_data && "locationId" in location_data["address"] ? location_data["address"]["locationId"] : "",
+                    addressPointLat: "address" in location_data && "point" in location_data["address"] && "lat" in location_data["address"]["point"] ? location_data["address"]["point"]["lat"] + "": "",
+                    addressPointLon: "address" in location_data && "point" in location_data["address"] && "lon" in location_data["address"]["point"]? location_data["address"]["point"]["lon"] + "": "",
+                    ammount: "0",
+                    unit_type: unit_type
+                }
+                // console.log('Listings Request Payload:', JSON.stringify(payload, null, 2));
+                $.ajax({
+                    type: "POST",
+                    url: "/api/listings",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json; charset=utf-8",
+                    traditional: true,
+                    dataType: "json",
+                    // Response locations from API - `response`
+                    success: function( response ) {
+                        last_payload = payload
+                        console.log(typeof response["totalCount"])
+                        if(response["totalCount"] == 0){
+                            $( "#result" ).empty().append( "Error!\nDescription: No Units correspond to Selection\nFix: Edit Selection" );
+                            return null
+                        }
+                        $( "#result" ).empty().append( "Ammount of Units Found: " + response["totalCount"] + "\nDefine `Crawl and Google Sheets Definitions` and `Run`\n" );
+                        $( "#iunitsammount").attr("max", response["totalCount"]);
+                        $( "#iunitsammount").attr("value", response["totalCount"]);
+                        $( "#crawl_ui" ).attr("hidden",false);
+                    }
+                });
+            });
+        
+            // Init Crawler
+            $('#isubmit').click(function(){
+                $( "#result" ).empty().append( "ZapCrawler in Progress...\n\n" );
+                // Request locations from API
+                // > Crawl Ammount Handle 
+                let ammount = $( "#iunitsammount" ).val()
+                let max_ammount = parseInt($( "#iunitsammount").attr("max"))
+                if(max_ammount == 0){ //Why delete it...
+                    $( "#result" ).empty().append( "Error!\nDescription: No Units correspond to Selection\n" );
+                    return null
+                }
+                if(ammount <= 0 || ammount > max_ammount){
+                    $( "#result" ).empty().append( "Error!\nDescription: Ammount of Units out of range\nFix: Select a value between [1," + max_ammount +"]" );
+                    return null
+                }
+                let payload = last_payload
+                payload['ammount'] = ammount
+
+                // > Google Sheet Name
+                let sheet_name = $( "#igsheetname" ).val()
+                if(sheet_name == ""){
+                    $( "#result" ).empty().append( "Error!\nDescription: Sheet name is empty\nFix: Change Sheet Name" );
+                    return null
+                }
+                payload['sheet_name'] = sheet_name
+
+                // > Google Sheet Share Handle
+                let share_type = $( 'input[name="sheetshare"]:checked' ).val()
+                if(share_type == "PUBLIC"){
+                    payload['sheet_share_users'] = []
+                }
+                else{
+                    let sheet_user_share = $( "#iemailshare" ).val()
+                    if(sheet_user_share == ""){
+                        $( "#result" ).empty().append( "Error!\nDescription: Private Share Require Users\nFix: Define Users e-mails to share separated by comma" );
+                        return null
+                    }
+                    payload['sheet_share_users'] = sheet_user_share.split(",").map(function(item) {
+                        return item.trim();
+                    });
+                }
+                
+
+
+                // > RUN CRAWL
+                console.log("Crawl Request payload:", JSON.stringify(payload, null, 2))
+                $.ajax({
+                    type: "POST",
+                    url: "/api/listings",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json; charset=utf-8",
+                    traditional: true,
+                    dataType: "json",
+                    // Response locations from API - `response`
+                    success: function( response ) {
+                        console.log(response)
+                        $( "#result" ).empty().append( 'Sucess! Click on <a href="' + response["gsheet_url"] +'">this</a> link to acess the results');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
