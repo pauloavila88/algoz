@@ -10,7 +10,10 @@ import re
 class Utils:
     def wait(self,_time=2,_rand=True):
         """Sleep for a set time. By defaul will sleep betwen a random time between the time and it's double."""
-        stop = random.randrange(_time*100,_time*100*2)/100 if _rand else _time
+        if _rand:
+            stop = random.randrange(_time*100,_time*100*2)/100 if _rand else _time
+        else:
+            stop = _time
         time.sleep(stop)
     
     def check_keys(self,_dict,_keys_to_check=[]):
@@ -23,6 +26,21 @@ class Utils:
             else:
                 checks = [True if all ( k in _dict for k in _keys_to_check) else False]
             return True if sum(checks) > 0 else False
+        
+    def keys_exists(self, element, *keys):
+        '''Check if *keys (nested) exists in `element` (dict). Retrieved from https://stackoverflow.com/a/43491315'''
+        if not isinstance(element, dict):
+            raise AttributeError('keys_exists() expects dict as first argument.')
+        if len(keys) == 0:
+            raise AttributeError('keys_exists() expects at least two arguments, one given.')
+
+        _element = element
+        for key in keys:
+            try:
+                _element = _element[key]
+            except KeyError:
+                return False
+        return True
     
     def extract_regex(self,_text,_regex):
         """Extract the text from regex"""
