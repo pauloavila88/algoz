@@ -51,6 +51,12 @@ class Gsheet:
             if resize_rows > 0:
                 self.log.log('Adding %s rows...'%resize_rows,3)
                 _tab.add_rows(resize_rows)
+    
+    def resize_new_sheet(self,_tab,_data,_crange):
+        """Add columns and rows if needed"""
+        if len(_data) > 0:
+            start_col,end_col,start_row, end_row = self.get_data_crange(_data,_crange.split(':')[0])
+            _tab.resize( end_row, self.colletter_2_colnum(end_col)+1 )
                 
     def get_data_crange(self,_data,_start_range='A1'):
         """Return the cell range based on a start range and a matrix"""
@@ -130,6 +136,13 @@ class Gsheet:
             
         return res
 
+    def format_sheet(self, _tab):
+        # HRADERS
+        header = pygsheets.Cell("A1")
+        header.color = (0.9529412, 0.9529412, 0.9529412, 0)
+        header.text_format['bold'] = True
+        _tab.get_row(1, returnas = "range").apply_format(header)    #, fields = "userEnteredFormat.backgroundColor"
+
     ########################
     # Execution
     def get_sheet_info(self,_sheet_info):
@@ -140,6 +153,13 @@ class Gsheet:
         start_range = sheet_info['start_range']
         
         return sheet, tab, start_range
+    
+    def new_sheet(self,_sheet_name):
+        """Get all the sheet info from the object"""
+        create_res = self.gs.sheet.create(title=_sheet_name)
+        sheet = self.gs.open(_sheet_name)
+        tab = sheet.sheet1
+        return sheet, tab
     
     def get_data(self,_raw_sheet_info,return_as_dict=True):
         """Return all data from a sheet_info"""
@@ -181,3 +201,36 @@ class Gsheet:
             tab.update_values(crange,data)
             
             return crange
+        
+    def create(self,_sheet_name,_data,_cols=[],_share_users=[],_append=False):
+        """Save data to a new sheet"""
+        if(len(_data) > 0):
+            sheet, tab = self.new_sheet(_sheet_name)
+            # Parse Data
+            start_range = 'A1'
+            last_data_row = 0
+            data = self.parse_gsheet_data(_data,_cols,start_range)
+
+            # Get Cell Range
+            crange = self.get_crange(data,start_range,last_data_row,_append)
+
+            # Resize
+            self.resize_new_sheet(tab,data,crange)
+
+            # Write Table
+            self.log.log('Creating Sheet "%s" on range %s...'%(sheet.title,crange),2)
+            tab.update_values(crange,data)
+
+            # Format Table
+            self.format_sheet(tab)
+
+
+            # Share Google Sheet
+            # > PUBLIC
+            if len(_share_users) == 0:
+                sheet.share('', role='writer', type='anyone')
+            # > PRIVATE
+            else:
+                for user in _share_users:
+                    sheet.share(user, role='writer', type='user')
+            return sheet.url
