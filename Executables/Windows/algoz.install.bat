@@ -33,7 +33,7 @@ call %UserProfile%\miniconda3\condabin\conda activate ./env
 call pip install -r requirements.txt
 @REM Get Google Cloud Credentials
 IF NOT EXIST %UserProfile%\Algoz\crawler\confidential mkdir %UserProfile%\Algoz\crawler\confidential
-call echo [ WARNING ] - Before continuing insert in this dir `%UserProfile%\Algoz\crawler\confidential` the file `client_secret.json`
+call echo [ WARNING ] - Before continuing insert the provided `client_secret.json` file in this dir: `%UserProfile%\Algoz\crawler\confidential`
 PAUSE
 call python %UserProfile%\Algoz\crawler\authorize_pygsheets.py
 call move .\sheets.googleapis.com-python.json %UserProfile%\Algoz\crawler\confidential
