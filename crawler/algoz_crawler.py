@@ -13,7 +13,6 @@ import time
 from .algoz_libraries import Utils
 from .algoz_libraries import Log
 from .algoz_libraries import Gsheets
-from .algoz_libraries import Credentials
 
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 CREDENTIAL_DIR = os.path.join(CURRENT_PATH, "confidential")
@@ -158,18 +157,15 @@ class ZapCrawler():
         except Exception as e:
             return ''
 
-        
     def get_link(self,_elem):
         return 'https://www.zapimoveis.com.br/imovel/'+_elem['data-id']
 
-    
     def get_address(self,_elem):
         try:
             return f"{_elem.find_all('h2',{'class': 'card__address'})[0].text.strip()} - {_elem.find_all('p',{'class': 'card__street'})[0].text.strip()}"  # Upwork - Vargas update (The website html have changed)
         except Exception as e:
             return ''
 
-        
     def get_description(self,_elem):
         try:
             res = _elem.find_all('p',{'class':'card__description'})     # Upwork - Vargas update (The website html have changed)
@@ -177,7 +173,6 @@ class ZapCrawler():
         except Exception as e:
             return ''
 
-        
     def get_tag(self,_elem):
         try:
             res = _elem.find_all('div',{'class':'badge'})
@@ -185,14 +180,12 @@ class ZapCrawler():
         except Exception as e:
             return ''
         
-        
     def get_price(self,_elem):
         try:
             res = _elem.find_all('div',{'class':'listing-price'})[0].find_all('p')      # Upwork - Vargas update (The website html have changed)
             return res[0].text.strip() if len(res) > 0 else ''
         except Exception as e:
             return ''
-        
         
     def get_image(self,_elem):
         try:
@@ -248,7 +241,6 @@ class ZapCrawler():
         res = requests.get(url, headers=self.headers, timeout=7)
         return res
     
-    
     def parse_res(self, _res, _search_input, _retry=0):
         partial_listings = []
         
@@ -278,7 +270,6 @@ class ZapCrawler():
         
         return partial_listings
     
-    
     def parse_page(self, search_input, _retry=0):
         self.log(f"Running for page {search_input['page']}...",2)
 
@@ -291,6 +282,8 @@ class ZapCrawler():
     ######################
     # Parse results - Back-End
     ######################
+
+
     # > LOCATIONS
     def request_locations(self, search_input, _size="10", _retry=0): 
         api_url = "https://glue-api.zapimoveis.com.br/v3/locations"
@@ -366,6 +359,7 @@ class ZapCrawler():
             return loc_req
         return self.parse_locations(loc_req)
 
+
     # > LISTINGS
     def request_listings(self, search_input, _size="0", _page="1", _from="0", _retry=0):
         utils = Utils.Utils()
@@ -437,23 +431,23 @@ class ZapCrawler():
     def parse_listing_address(self, listing):
         _adress = ""
         # Door Number
-        _adress += f"{listing['listing']['address']['streetNumber']} " if self.utils.keys_exists(listing, 'listing', 'address', 'streetNumber') and listing['listing']['address']['streetNumber'] != "" else ''     
+        _adress += f"{listing['listing']['address']['streetNumber']}" if self.utils.keys_exists(listing, 'listing', 'address', 'streetNumber') and listing['listing']['address']['streetNumber'] != "" else ''     
         # Street
-        _adress += f"{listing['listing']['address']['street']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'street') and listing['listing']['address']['street'] != "" else ''                
+        _adress += f" {listing['listing']['address']['street']}" if self.utils.keys_exists(listing, 'listing', 'address', 'street') and listing['listing']['address']['street'] != "" else ''                
         # Neighborhood
-        _adress += f"{listing['listing']['address']['neighborhood']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'neighborhood') and listing['listing']['address']['neighborhood'] != "" else ''    
-        # Zone
-        _adress += f"{listing['listing']['address']['zone']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'zone') and listing['listing']['address']['zone'] != "" else ''                    
+        _adress += f" - {listing['listing']['address']['neighborhood']}" if self.utils.keys_exists(listing, 'listing', 'address', 'neighborhood') and listing['listing']['address']['neighborhood'] != "" else ''    
         # City
-        _adress += f"{listing['listing']['address']['city']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'city') and listing['listing']['address']['city'] != "" else ''                    
-        # District
-        _adress += f"{listing['listing']['address']['district']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'district') and listing['listing']['address']['district'] != "" else ''            
+        _adress += f", {listing['listing']['address']['city']}" if self.utils.keys_exists(listing, 'listing', 'address', 'city') and listing['listing']['address']['city'] != "" else '' 
         # State
-        _adress += f"{listing['listing']['address']['state']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'state') and listing['listing']['address']['state'] != "" else ''                  
-        # Country
-        _adress += f"{listing['listing']['address']['country']} " if self.utils.keys_exists(listing, 'listing', 'address', 'country') and listing['listing']['address']['country'] != "" else ''               
+        _adress += f" - {listing['listing']['address']['state']}" if self.utils.keys_exists(listing, 'listing', 'address', 'state') and listing['listing']['address']['state'] != "" else ''
         # Zip Code
-        _adress += f"{listing['listing']['address']['zipCode']}" if self.utils.keys_exists(listing, 'listing', 'address', 'zipCode') and listing['listing']['address']['zipCode'] != "" else ''                
+        _adress += f", {listing['listing']['address']['zipCode'][:5]}-{listing['listing']['address']['zipCode'][5:]}" if self.utils.keys_exists(listing, 'listing', 'address', 'zipCode') and listing['listing']['address']['zipCode'] != "" and len(listing['listing']['address']['zipCode']) == 8 else ''                
+        # Zone
+        # _adress += f"{listing['listing']['address']['zone']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'zone') and listing['listing']['address']['zone'] != "" else ''               
+        # District
+        # _adress += f"{listing['listing']['address']['district']}, " if self.utils.keys_exists(listing, 'listing', 'address', 'district') and listing['listing']['address']['district'] != "" else ''                                    
+        # Country
+        # _adress += f"{listing['listing']['address']['country']} " if self.utils.keys_exists(listing, 'listing', 'address', 'country') and listing['listing']['address']['country'] != "" else ''               
         return _adress
 
     def parse_listings_possibilities(self, listings_input):
@@ -565,8 +559,6 @@ class ZapCrawler():
         # return{"listings": listings_df.to_dict('records')}
     
         # self.log(f'Finished! Total results {len(listings)}...', 3, dt.now())
-
-        
 
 
     ######################
