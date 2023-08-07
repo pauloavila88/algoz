@@ -23,8 +23,9 @@ body{
     margin:0;
     /* border: 0.0001px solid black; */
     border:none;
-    background-repeat: no-repeat;
-    background-image: url("./bck-ground-imgs/z.jpg");
+    /* background-repeat: no-repeat; */
+    background-image: none;
+    background-color: #999;
 }
 a:focus{
     outline:thin dotted
@@ -678,7 +679,9 @@ code{
     padding:.5em 1em;
     margin:0;
     display:inline-block;
-    border-radius:.25em;
+    width:80px;
+    height:80px;
+    border-radius:50%;
     border:1px solid rgba(41,47,54,0.2);
     box-shadow:0 1px 0 rgba(255,255,255,0.2) inset,0 1px 2px -1px rgba(41,47,54,0.2);
     text-decoration:none;
@@ -704,7 +707,7 @@ code{
 .btn--secondary{
     border:1.2px solid rgba(41,47,54,0.2);
     color:#fff;
-    background-color:#ff8438;
+    background-color:#ae81ff;
     text-shadow:1px 1px 1px rgba(41,47,54,0.5)
 }
 .btn--secondary:hover,.btn--secondary:focus{

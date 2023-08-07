@@ -5,6 +5,7 @@ from .routemodels import Locations, Listings
 from crawler.algoz_crawler import ZapCrawler
 import time
 import json
+import os
 
 # class Locations(BaseModel):
     # query: str = ""
@@ -80,3 +81,9 @@ class Handler:
             if _debug:
                 listings_res["took"] = time.time() - start_time
             return listings_res
+        
+        @router.post("/bckimages")
+        async def get_listings():
+            current_path = os.path.dirname(os.path.realpath(__file__))
+            images_dir = os.path.join(current_path, "ui", "build", "static", "bck-ground-imgs")
+            return os.listdir(images_dir)

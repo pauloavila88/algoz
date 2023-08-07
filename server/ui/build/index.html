@@ -102,24 +102,8 @@
                                 <input type="text" id="iemailshare" placeholder="user1@gmail.com, user2@domain.com, user3@yahoo.com" size="67em" style="margin-left: 2em;"><br>
                             </div><br>
                         </div>
-
-
-                        <div class="grid">
-                            <div class="grid__item one-half" >
-                                <input type="submit" value="Run" class="sharing__button btn btn--secondary btn--full" id="isubmit">
-                            </div>
-                            <div class="grid__item one-half" style="width: 32%; float:right;">
-                                <button type="button" id="icopy" class="btn--primary" style="border-radius:.25em; 
-                                    border:0.5px solid rgba(41,47,54,0.2);
-                                    -webkit-transition:background-color .2s linear; 
-                                    -moz-transition:background-color .2s linear;
-                                    -o-transition:background-color .2s linear;
-                                    transition:background-color .2s linear" 
-                                    hidden>
-                                        <img src="copy.svg" alt="copy" heigh="auto" width="17%">
-                                </button>
-                            </div>
-                        </div>
+                        
+                        <input type="submit" value="Run" class="sharing__button btn btn--secondary btn--full" id="isubmit">
                     </div>
 
                 </div>
@@ -135,6 +119,22 @@
         </div>
 
         <script>
+            $(document).ready(function(){
+                // Change Background
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bckimages",
+                    contentType: "application/json; charset=utf-8",
+                    traditional: true,
+                    dataType: "json",
+                    // Response locations from API - `response`
+                    success: function( img_list ) {
+                        var img_item = img_list[Math.floor(Math.random()*img_list.length)];
+                        console.log('url("./bck-ground-imgs/' + img_item + '")')
+                        $( "body" ).css("background-image", 'url(static/bck-ground-imgs/' + img_item + ')');
+                    }
+                });
+            });
             // Unit Type Handler
             let unitType_dic = {
                 RESIDENTIAL:{
@@ -522,7 +522,6 @@
                     // Response locations from API - `response`
                     success: function( response ) {
                         last_payload = payload
-                        console.log(typeof response["totalCount"])
                         if(response["totalCount"] == 0){
                             $( "#result" ).empty().append( "Error!\nDescription: No Units correspond to Selection\nFix: Edit Selection" );
                             return null
@@ -537,7 +536,7 @@
         
             // Init Crawler
             $('#isubmit').click(function(){
-                $( "#result" ).empty().append( "ZapCrawler in Progress...\n\n" );
+                $( "#result" ).empty().append( "Algoz in Progress...\n\n" );
                 // Request locations from API
                 // > Crawl Ammount Handle 
                 let ammount = $( "#iunitsammount" ).val()
@@ -592,6 +591,21 @@
                     success: function( response ) {
                         console.log(response)
                         $( "#result" ).empty().append( 'Sucess! Click on <a href="' + response["gsheet_url"] +'">this</a> link to acess the results');
+
+                        // Change Background
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/bckimages",
+                            contentType: "application/json; charset=utf-8",
+                            traditional: true,
+                            dataType: "json",
+                            // Response locations from API - `response`
+                            success: function( img_list ) {
+                                var img_item = img_list[Math.floor(Math.random()*img_list.length)];
+                                console.log('url("./bck-ground-imgs/' + img_item + '")')
+                                $( "body" ).css("background-image", 'url(static/bck-ground-imgs/' + img_item + ')');
+                            }
+                        });
                     }
                 });
             });
