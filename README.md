@@ -6,11 +6,29 @@
 
 ![Download Button Location](Download_File_GitHub.PNG)
 
- * ***Tips:***
-    * Run as Admnistrator to prevent Deneid Acess;
-    * While instalation will be requested to insert Google Cloud APIs Credentials in a specific folder:
-        
-        ![GCloud Credentials Request](<Gsheet_Credentials_Request.PNG>)
+ * ***Tip:***
+    * Run as Admnistrator to prevent Deneid Acess.
+
+
+ * ***Google APIs Authorization:***
+    * While instalation will be requested to insert Google Cloud APIs Credentials JSON file in a specific folder:
+
+        ![Credentials Request](G-APIS_client_secret.PNG)
+
+    * Authenticate the Google Sheets/Drive that will be associated with App:
+        * Get Google APIs Authorization Code:
+
+            ![Get Authorization Code](G-APIS_Get-AuthorizationCode.PNG)
+
+        * Set Google APIs Authorization Code:
+
+            ![Set Authorization Code](G-APIS_Set-AuthorizationCode.PNG)
+
+
+
+* ***Instalation Completed:***
+
+    ![Instalation Completed](G-APIS_InstalationComplete.PNG)
 </details>
 
 # Run
