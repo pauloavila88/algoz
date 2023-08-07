@@ -12,67 +12,27 @@
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-
-        <header id="header" class="header header--fixed hide-from-print" role="banner">
-            <div class="container" >
-
-                <nav id="nav" class="nav-wrapper" role="navigation">
-                    <ul class="nav nav--main">
-                        <li class="nav__item ">
-                            <a class="header__link subdued" href="https://github.com/franciscomvargas/zapcrawler">
-                                <span aria-hidden="true" class="icon icon--github"></span>
-                                <span class="complimentary push--left">GitHub</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                
-                <a href="http://localhost:8880/" class="brand header__link">
-                    <b class="brand__forename">ZapCrawler</b><b class="brand__surname">.py</b>
-                </a>
-            </div>
-        </header>
         
         <article>
-            <header class="feature">
-                <div class="container container--wide feature-title">
-                    <h3 class="feature-title__title headroom-title">
-                        WebCrawl <a href="https://www.zapimoveis.com.br/">zapimoveis</a>
-                    </h3>
-                </div>
-            </header>
             <!-- <img src="favicon.ico" alt="logo" width="80" height="auto" style="position: absolute; top: 80px;"> -->
             
             <div class="container block main" role="main">
+                <h1 class="brand__forename">Algoz.py</h1><br><br>
                 <!-- UI Search -->
                 <div class="downloads">
                     <!-- Business Type -->
-                    <div class="grid">
-                        <div class="grid__item one-half" >
-                            <h2>Tipo de Negócio</h2>
-                        </div>
-                        <div class="grid__item one-half" style="float:right;">
-                            <button type="button" id="bbusinessype">&#8679;</button>
-                        </div>
-                    </div>
+                    <h3>Tipo de Negócio <button type="button" id="bbusinessype">&#8679;</button></h3>
                     <div id="ibusinessype">
-                        <input type="radio" id="ibuy" name="businesstype" value="SALE" checked>
+                        <input type="radio" id="ibuy" name="businesstype" value="SALE" checked style="margin-left: 2em;">
                         <label for="ibuy">Comprar</label><br>
-                        <input type="radio" id="irental" name="businesstype" value="RENTAL">
+                        <input type="radio" id="irental" name="businesstype" value="RENTAL" style="margin-left: 2em;">
                         <label for="irental">Alugar</label><br><br>
                     </div>
                     
                     <!-- Unit Type -->
-                    <div class="grid">
-                        <div class="grid__item one-half" >
-                            <h2>Tipo de Imóvel</h2>
-                        </div>
-                        <div class="grid__item one-half" style="float:right;">
-                            <button type="button" id="bunitype">&#8679;</button>
-                        </div>
-                    </div>
+                    <h3>Tipo de Imóvel <button type="button" id="bunitype">&#8679;</button></h3>
                     <div id="iunitype">
-                        <select id="sunitType" name="nlocation">
+                        <select id="sunitType" name="nlocation" style="margin-left: 2em;">
                             <option name="ANY">Todos os Resultados</option>
                             <optgroup label="Residencial">
                                 <option name="RESIDENTIAL-APARTMENT">Apartamento</option>
@@ -103,71 +63,43 @@
                     </div>
                     
                     <!-- Unit Status -->
-                    <div class="grid">
-                        <div class="grid__item one-half" >
-                            <h2>Estado do Imóvel</h2>
-                        </div>
-                        <div class="grid__item one-half" style="float:right;">
-                            <button type="button" id="bunitsatus">&#8679;</button>
-                        </div>
-                    </div>
+                    <h3>Estado do Imóvel <button type="button" id="bunitsatus">&#8679;</button></h3>
                     <div id="iunitsatus">
-                        <input type="radio" name="unitsatus" id="iused" value="USED" checked>
+                        <input type="radio" name="unitsatus" id="iused" value="USED" checked style="margin-left: 2em;">
                         <label for="iused">Usado</label><br>
-                        <input type="radio" name="unitsatus" id="idevelopment" value="DEVELOPMENT">
+                        <input type="radio" name="unitsatus" id="idevelopment" value="DEVELOPMENT" style="margin-left: 2em;">
                         <label for="idevelopment">Em Lançamento</label>
-                        <div id="constructionstatus" style="text-align: right;"></div><br>
+                        <div id="constructionstatus" style="margin-left: 3.5em;"></div><br>
                     </div>
 
                     <!-- Search Location -->
-                    <div class="grid">
-                        <div class="grid__item one-half" >
-                            <h2><label for="isearch" id="lsearch">Localização</label></h2>
-                        </div>
-                        <div class="grid__item one-half" style="float:right;">
-                            <button type="button" id="bsearch">&#8679;</button>
-                        </div>
-                    </div>
+                    <h3>Localização <button type="button" id="bsearch">&#8679;</button></h3>
                     <div id="dsearch">
-                        <input type="search" id="isearch" placeholder="Busque por rua, bairro, cidade, imobiliária ou condomínio"  size="67em">
-                        <select id="locations" name="nlocation" hidden></select><br><br>
+                        <input type="search" id="isearch" placeholder="Busque por rua, bairro, cidade, imobiliária ou condomínio"  size="67em" style="margin-left: 2em;"><br>
+                        <select id="locations" name="nlocation" hidden style="margin-left: 2em;"></select><br><br>
                     </div>
 
                     <!-- CRAWL Request -->
                     <div id="crawl_ui" hidden>
                         <!-- CRAWL Definitions -->
-                        <div class="grid">
-                            <div class="grid__item one-half" >
-                                <h2>Definições de Crawler</h2>
-                            </div>
-                            <div class="grid__item one-half" style="float:right;">
-                                <button type="button" id="bcrawldef">&#8679;</button>
-                            </div>
-                        </div>
+                        <h3>Definições de Crawler <button type="button" id="bcrawldef">&#8679;</button></h3>
                         <div id="dcrawldef">
-                            <label for="iunitsammount">Quantidade de Imóveis para extrair: </label>
+                            <label for="iunitsammount" style="margin-left: 2em;">Quantidade de Imóveis para extrair: </label>
                             <input type="number" id="iunitsammount" min="0" max="" value="0"><br><br>
                         </div>
 
                         <!-- GSheets Definitions -->
-                        <div class="grid">
-                            <div class="grid__item one-half" >
-                                <h2>Definições de Google Sheet</h2>
-                            </div>
-                            <div class="grid__item one-half" style="float:right;">
-                                <button type="button" id="bgsheets">&#8679;</button>
-                            </div>
-                        </div>
+                        <h3>Definições de Google Sheet <button type="button" id="bgsheets">&#8679;</button></h3>
                         <div id="dgsheets">
-                            <label for="igsheetname">Nome do Sheet: </label>
+                            <label for="igsheetname" style="margin-left: 2em;">Nome do Sheet: </label>
                             <input type="search" id="igsheetname" size="67em"><br><br>
 
-                            <input type="radio" id="ipublic" name="sheetshare" value="PUBLIC" checked>
+                            <input type="radio" id="ipublic" name="sheetshare" value="PUBLIC" checked style="margin-left: 2em;">
                             <label for="ipublic">Público</label><br>
-                            <input type="radio" id="iprivate" name="sheetshare" value="PRIVATE">
+                            <input type="radio" id="iprivate" name="sheetshare" value="PRIVATE" style="margin-left: 2em;">
                             <label for="iprivate">Privado</label><br>
                             <div id="privateshare" hidden>
-                                <input type="text" id="iemailshare" placeholder="user1@gmail.com, user2@domain.com, user3@yahoo.com" size="67em"><br>
+                                <input type="text" id="iemailshare" placeholder="user1@gmail.com, user2@domain.com, user3@yahoo.com" size="67em" style="margin-left: 2em;"><br>
                             </div><br>
                         </div>
 
@@ -199,7 +131,7 @@
         </article>
         
         <div class="footer">
-            <p>© 2023 - Francisco Vargas</p>
+            <p>© 2023 - Baroz Empreendimentos</p>
         </div>
 
         <script>
@@ -410,14 +342,14 @@
             // Attach a Construction Status when Development is selected
             $( "#idevelopment" ).click(function() {
                 if( $( "#idevelopment" ).is(':checked') ){
-                    var $html_element = `<label for="iplan">Na planta </label>
-                        <input type="radio" id="iplan" name="constructionstatus" value="PLAN_ONLY"><br>
-                        <label for="iconstruction">Em construção </label>
-                        <input type="radio" id="iconstruction" name="constructionstatus" value="UNDER_CONSTRUCTION"><br>
-                        <label for="ibuilt">Pronto para morar </label>
-                        <input type="radio" id="ibuilt" name="constructionstatus" value="BUILT"><br>
-                        <label for="iany">Qualquer um </label>
-                        <input type="radio" id="iany" name="constructionstatus" value="PLAN_ONLY,UNDER_CONSTRUCTION,BUILT" checked><br>`
+                    var $html_element = `<input type="radio" id="iplan" name="constructionstatus" value="PLAN_ONLY">
+                        <label for="iplan">Na planta </label><br>
+                        <input type="radio" id="iconstruction" name="constructionstatus" value="UNDER_CONSTRUCTION">
+                        <label for="iconstruction">Em construção </label><br>
+                        <input type="radio" id="ibuilt" name="constructionstatus" value="BUILT">
+                        <label for="ibuilt">Pronto para morar </label><br>
+                        <input type="radio" id="iany" name="constructionstatus" value="PLAN_ONLY,UNDER_CONSTRUCTION,BUILT" checked>
+                        <label for="iany">Qualquer um </label><br>`
                     $( "#constructionstatus" ).empty().append( $html_element )
                 }
             });
@@ -427,7 +359,7 @@
                 }
             });
 
-            // Attach a Construction Status when Development is selected
+            // Attach a Share Text Area when Private is selected
             $( "#iprivate" ).click(function() {
                 if( $( "#iprivate" ).is(':checked') ){
                     $( "#privateshare" ).attr("hidden",false);
