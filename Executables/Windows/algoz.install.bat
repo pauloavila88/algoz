@@ -1,3 +1,5 @@
+@REM Re-instalation Check
+IF EXIST %UserProfile%\Algoz rmdir /s %UserProfile%\Algoz
 @REM Create Project Folder
 IF NOT EXIST %UserProfile%\Algoz mkdir %UserProfile%\Algoz
 call cd %UserProfile%\Algoz
