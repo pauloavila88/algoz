@@ -23,8 +23,9 @@ body{
     margin:0;
     /* border: 0.0001px solid black; */
     border:none;
-    /* background-repeat: no-repeat; */
     background-image: none;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-color: #999;
 }
 a:focus{
@@ -754,13 +755,13 @@ code{
     padding:5em 0 2em 0;
     text-align:right
 }
-@media screen and (min-width: 50em){
+/* @media screen and (min-width: 50em){
     .feature{
         padding-top:5em;
         padding-bottom:1em;
         padding-right: 10em
     }
-}
+} */
 .feature a{
     text-decoration:underline;
     color:#4594bf
@@ -848,9 +849,9 @@ code{
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color:#242582;
-    border-top:3px solid #242582;
-    box-shadow:0 2px 2px -1px #242582 inset;
+    background:none;
+    /* border-top:3px solid #242582; */
+    /* box-shadow:0 2px 2px -1px #242582 inset; */
     color: white;
     text-align: center
 }
