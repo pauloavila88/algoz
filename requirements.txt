@@ -2,6 +2,7 @@
 click
 uvicorn
 fastapi
+colorama
 
 # CRAWLER
 pandas
