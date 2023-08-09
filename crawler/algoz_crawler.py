@@ -354,10 +354,13 @@ class ZapCrawler():
         return locations_output
             
     def get_locations(self, search_input, _size=LOCATAIONS_PER_TYPE_HTML, _retry=0):
-        loc_req = self.request_locations(search_input, _size, _retry)
-        if "err" in loc_req:
-            return loc_req
-        return self.parse_locations(loc_req)
+        try:
+            loc_req = self.request_locations(search_input, _size, _retry)
+            if "err" in loc_req:
+                return loc_req
+            return self.parse_locations(loc_req)
+        except Exception as e:
+            return {"err": e}
 
 
     # > LISTINGS
@@ -525,49 +528,52 @@ class ZapCrawler():
         return  partial_listings
 
     def get_listings(self, search_input, _retry=0):
-        # Retrieve totalCount of Listings
-        if search_input['ammount'] == '0':
-            lis_req = self.request_listings(search_input, _retry=_retry)
-            if "err" in lis_req:
-                return lis_req
-            return self.parse_listings_totalCount(lis_req)
-        
-        # Spreadsheet Construction with Listings
-        _ammount = int(search_input['ammount'])
-        _page_counter=1
-        _from = 0
-        _ammount_counter = 0
-        listings = []
-        _pages_retry=self.MAX_RETRIES
-        while True:
-            size = LISTINGS_API_MAX_SIZE if _ammount - _from  > LISTINGS_API_MAX_SIZE else _ammount - _from
-            lis_req = self.request_listings(search_input, _size=str(size), _page=str(_page_counter), _from=str(_from), _retry=_retry)
-            self.utils.wait(_time=0.5, _rand=True)
-            if "err" in lis_req:
-                return lis_req
+        try:
+            # Retrieve totalCount of Listings
+            if search_input['ammount'] == '0':
+                lis_req = self.request_listings(search_input, _retry=_retry)
+                if "err" in lis_req:
+                    return lis_req
+                return self.parse_listings_totalCount(lis_req)
             
-            parsed_listings = self.parse_listings(lis_req, search_input['businessType'])
-            
-            if len(parsed_listings) == 0:
-                _page_counter += 1
-                _pages_retry -= 1
-                if _pages_retry <= 0:
+            # Spreadsheet Construction with Listings
+            _ammount = int(search_input['ammount'])
+            _page_counter=1
+            _from = 0
+            _ammount_counter = 0
+            listings = []
+            _pages_retry=self.MAX_RETRIES
+            while True:
+                size = LISTINGS_API_MAX_SIZE if _ammount - _from  > LISTINGS_API_MAX_SIZE else _ammount - _from
+                lis_req = self.request_listings(search_input, _size=str(size), _page=str(_page_counter), _from=str(_from), _retry=_retry)
+                self.utils.wait(_time=0.5, _rand=True)
+                if "err" in lis_req:
+                    return lis_req
+                
+                parsed_listings = self.parse_listings(lis_req, search_input['businessType'])
+                
+                if len(parsed_listings) == 0:
+                    _page_counter += 1
+                    _pages_retry -= 1
+                    if _pages_retry <= 0:
+                        break
+                    continue
+
+                listings += parsed_listings
+
+                _from += len(parsed_listings)
+                _ammount_counter += len(parsed_listings)
+                if _ammount_counter >= _ammount:
                     break
-                continue
+            
+            # Create GSheet with results
+            gsheet_url = self.create_res(search_input['sheet_name'], listings, search_input['sheet_share_users'])
 
-            listings += parsed_listings
-
-            _from += len(parsed_listings)
-            _ammount_counter += len(parsed_listings)
-            if _ammount_counter >= _ammount:
-                break
+            return{"listings": listings, 'gsheet_url': gsheet_url}
         
-        # Create GSheet with results
-        gsheet_url = self.create_res(search_input['sheet_name'], listings, search_input['sheet_share_users'])
-
-        return{"listings": listings, 'gsheet_url': gsheet_url}
-    
-        # self.log(f'Finished! Total results {len(listings)}...', 3, dt.now())
+            # self.log(f'Finished! Total results {len(listings)}...', 3, dt.now())
+        except Exception as e:
+            return {"err": e}
 
 
     ######################
