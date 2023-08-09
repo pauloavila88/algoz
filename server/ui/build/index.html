@@ -3,7 +3,7 @@
     <head>
         <link rel="icon" href="favicon.ico"/>
         <!-- <link rel="apple-touch-icon" href="favicon.ico" /> -->
-        <title>ZapCrawler.py</title>
+        <title>Algoz.py</title>
         <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <meta name="google-signin-client_id" content="830850685303-nculaj6u1guqj27b3shqoiv1di97q1u0.apps.googleusercontent.com">
@@ -86,6 +86,14 @@
                         <div id="dcrawldef">
                             <label for="iunitsammount" style="margin-left: 2em;">Quantidade de Imóveis para extrair: </label>
                             <input type="number" id="iunitsammount" min="0" max="" value="0"><br><br>
+
+                            <select id="isort" name="nsort" style="margin-left: 2em;">
+                                <option name="NULL" selected disabled>Ordenar por</option>
+                                <!-- <option name="RELEVANCE">Mais relevantes</option> -->
+                                <option name="DATE">Mais recentes</option>
+                                <option name="PRICE">Menor preço</option>
+                                <option name="AREA">Maior área</option>
+                            </select><br><br>
                         </div>
 
                         <!-- GSheets Definitions -->
@@ -119,8 +127,8 @@
         </div>
 
         <script>
+            // Random Background On StartUP
             $(document).ready(function(){
-                // Change Background
                 $.ajax({
                     type: "POST",
                     url: "/api/bckimages",
@@ -135,6 +143,8 @@
                     }
                 });
             });
+            
+            
             // Unit Type Handler
             let unitType_dic = {
                 RESIDENTIAL:{
@@ -326,7 +336,7 @@
                     $( "#bcrawldef" ).empty().append( "&#8681;" );
                 }
             });
-            // > Crawl Definitions
+            // > GSheets Definitions
             $( "#bgsheets" ).click(function() {
                 if($( "#dgsheets" ).attr( "hidden" )){
                     $( "#dgsheets").attr("hidden",false);
@@ -551,7 +561,23 @@
                 }
                 let payload = last_payload
                 payload['ammount'] = ammount
-
+                
+                // > Crawl Sort Handle
+                let sort_idx = $('#isort').find(":selected").attr( "name" )
+                switch(sort_idx){   // case "RELEVANCE" not implemented - Required to listen to superPremium listings
+                    case "DATE":
+                        payload['sort'] = "updatedAt DESC";
+                        break;
+                    case "PRICE":
+                        payload['sort'] = "pricingInfos.price ASC sortFilter:pricingInfos.businessType='" + $( 'input[name="businesstype"]:checked' ).val() +"'";
+                        // payload['sort'] = "pricingInfos.price ASC";
+                        break;
+                    case "AREA":
+                        payload['sort'] = "usableAreas DESC";
+                        break;
+                    default:
+                        break;
+                }
                 // > Google Sheet Name
                 let sheet_name = $( "#igsheetname" ).val()
                 if(sheet_name == ""){

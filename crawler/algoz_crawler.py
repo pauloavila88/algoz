@@ -388,7 +388,12 @@ class ZapCrawler():
         if search_input['unit_type'] != {}:
             for k,v in search_input['unit_type'].items():
                 params[k] = v
+
+        if "sort" in search_input:
+            params["sort"] = search_input["sort"]
         
+        print("Incoming Request:", json.dumps(params, indent=2))
+
         headers=self.headers
         headers["x-domain"] = "www.zapimoveis.com.br"
 
@@ -450,6 +455,12 @@ class ZapCrawler():
         # _adress += f"{listing['listing']['address']['country']} " if self.utils.keys_exists(listing, 'listing', 'address', 'country') and listing['listing']['address']['country'] != "" else ''               
         return _adress
 
+    def parse_listing_price(self, priceInfos, businessType):
+        for priceInfo in priceInfos:
+            if priceInfo['businessType'] == businessType:
+                return priceInfo['price']
+        return ''
+
     def parse_listings_possibilities(self, listings_input):
         partial_listings = []
         listings = listings_input["search"]["result"]["listings"]
@@ -491,7 +502,7 @@ class ZapCrawler():
         
         return  partial_listings
 
-    def parse_listings(self, listings_input):
+    def parse_listings(self, listings_input, businessType):
         partial_listings = []
         listings = listings_input["search"]["result"]["listings"]
         for listing in listings:
@@ -504,7 +515,7 @@ class ZapCrawler():
                     'bathrooms': listing['listing']['bathrooms'][0] if self.utils.keys_exists(listing, 'listing', 'bathrooms') and len(listing['listing']['bathrooms'])>0 else '',
                     'tag': listing['link']['name'] if self.utils.keys_exists(listing, 'link', 'name') else '',
                     'description': listing['listing']['description'] if self.utils.keys_exists(listing, 'listing', 'description') else '',
-                    'price': listing['listing']['pricingInfos'][0]['price'] if len(listing['listing']['pricingInfos'])>0 and self.utils.keys_exists(listing, 'listing', 'pricingInfos', 0, 'price') else '',
+                    'price': self.parse_listing_price(listing['listing']['pricingInfos'], businessType) if self.utils.keys_exists(listing, 'listing', 'pricingInfos') and len(listing['listing']['pricingInfos'])>0 else '',
                     'image': json.dumps([ self.parse_image_link(value['url']) for value in listing['medias'] if self.utils.keys_exists(value, 'url') and  self.utils.keys_exists(value, 'type') and value['type'] == 'IMAGE']) ,
                     'link': self.parse_link(listing['link']['href']) if self.utils.keys_exists(listing, 'link', 'href') else ''
                 }
@@ -535,7 +546,7 @@ class ZapCrawler():
             if "err" in lis_req:
                 return lis_req
             
-            parsed_listings = self.parse_listings(lis_req)
+            parsed_listings = self.parse_listings(lis_req, search_input['businessType'])
             
             if len(parsed_listings) == 0:
                 _page_counter += 1
@@ -551,12 +562,10 @@ class ZapCrawler():
             if _ammount_counter >= _ammount:
                 break
         
-        # Save results
-        # print(listings)
+        # Create GSheet with results
         gsheet_url = self.create_res(search_input['sheet_name'], listings, search_input['sheet_share_users'])
 
         return{"listings": listings, 'gsheet_url': gsheet_url}
-        # return{"listings": listings_df.to_dict('records')}
     
         # self.log(f'Finished! Total results {len(listings)}...', 3, dt.now())
 

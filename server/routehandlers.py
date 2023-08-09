@@ -29,6 +29,7 @@ import os
 #     addressPointLon: str = ""
 #     ammount: str = "0"
 #     unit_type: dict = {}
+#     sort: Optional[str] = ""
 #     sheet_name: Optional[str] = ""
 #     sheet_share_users: Optional[list] = []
 
@@ -75,6 +76,9 @@ class Handler:
             if params.ammount != "0":
                 search_input['sheet_name'] = params.sheet_name
                 search_input['sheet_share_users'] = params.sheet_share_users
+
+            if params.sort != "":
+                search_input['sort'] = params.sort
             
             zapClass = ZapCrawler(_debug=True)
             listings_res = zapClass.get_listings(search_input=search_input, _retry=2)

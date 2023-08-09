@@ -23,5 +23,6 @@ class Listings(BaseModel):
     addressPointLon: str = ""
     ammount: str = "0"
     unit_type: dict = {}
+    sort: Optional[str] = ""
     sheet_name: Optional[str] = ""
     sheet_share_users: Optional[list] = []
