@@ -4,19 +4,11 @@ PROJ_DIR=~/Algoz
 # Go to Project Folder
 cd ${PROJ_DIR}
 # Activate Conda Virtual Environment
-eval "$(conda shell.bash hook)" # https://stackoverflow.com/a/56155771
+# eval "$(conda shell.bash hook)" # https://stackoverflow.com/a/56155771
+source $HOME/miniconda3/bin/activate
+conda deactivate
 conda activate ./env
 # Run ZapCrawler
-python3 --version
-if [ "$?" -eq "0" ]; 
-then
-    python3 cli.py ui --host 0.0.0.0 --port 80
-else
-    python --version
-    if [ "$?" -eq "0" ]; 
-    then
-        python cli.py ui --host 0.0.0.0 --port 80
-    fi
-fi
+sudo ./env/bin/python cli.py ui --host 0.0.0.0 --port 80
 # Inform Crawl Finish
 echo Algoz as Terminated !

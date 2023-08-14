@@ -60,6 +60,7 @@ else
     # Remove the Miniconda installer from your Home directory.
     rm ~/miniconda.sh
     source $HOME/miniconda3/bin/activate
+    conda deactivate
     conda --version
 fi
 
@@ -67,8 +68,9 @@ fi
 git clone --branch dev https://github.com/pauloavila88/algoz.git .
 # Create/Activate Conda Virtual Environment
 echo Current DIR : "$PWD"
+source $HOME/miniconda3/bin/activate
+conda deactivate
 conda create --prefix ./env python=3.11 -y
-eval "$(conda shell.bash hook)" # https://stackoverflow.com/a/56155771
 conda activate ./env
 # Install required Libraries
 pip install -r requirements.txt
