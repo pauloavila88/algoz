@@ -537,13 +537,14 @@
                             return null
                         }
                         $( "#result" ).empty().append( "Ammount of Units Found: " + response["totalCount"] + "\nDefine `Crawl and Google Sheets Definitions` and `Run`\n" );
-                        $( "#iunitsammount").attr("max", response["totalCount"]);
-                        $( "#iunitsammount").attr("value", response["totalCount"]);
+                        $( "#iunitsammount").attr("max", parseInt(response["totalCount"]));
+                        $( "#iunitsammount").val(parseInt(response["totalCount"]));
                         $( "#crawl_ui" ).attr("hidden",false);
                     }
                 });
             });
         
+
             // Init Crawler
             $('#isubmit').click(function(){
                 $( "#result" ).empty().append( "Algoz in Progress...\n\n" );
