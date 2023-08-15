@@ -65,7 +65,7 @@ else
 fi
 
 # Clone Repository
-git clone --branch dev https://github.com/pauloavila88/algoz.git .
+git clone --branch main https://github.com/pauloavila88/algoz.git .
 # Create/Activate Conda Virtual Environment
 echo Current DIR : "$PWD"
 source $HOME/miniconda3/bin/activate

@@ -71,17 +71,47 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
     * Shell Scripts for Web App Deploy:
 
-        Paste in Terminal Session the following command
-        ```cmd
-        sudo vi /home/ubuntu/Algoz/Executables/Linux/algoz.run.service.sh
-        ```
+        * Paste in Terminal Session the following command
+            ```cmd
+            sudo vi /home/ubuntu/Algoz/Executables/Linux/algoz.run.service.sh
+
+            ```
+        * Exit VIM:
+        
+            <kbd>Esc</kbd> + <kbd>:</kbd> + <kbd>w</kbd> + <kbd>q</kbd> + <kbd>↵ Enter</kbd>
+
 
     * Systemctl Service of Web App:
-    
-        Paste in Terminal Session the following command
-        ```cmd
-        sudo vi /lib/systemd/system/algoz.service
-        ```
+
+        * Edit Service:
+
+            Paste in Terminal Session the following command
+            ```cmd
+            sudo vi /lib/systemd/system/algoz.service
+
+            ```
+        * Exit VIM:
+
+            <kbd>Esc</kbd> + <kbd>:</kbd> + <kbd>w</kbd> + <kbd>q</kbd> + <kbd>↵ Enter</kbd>
+
+        * Save Service Edition:
+
+            Paste in Terminal Session the following command
+            ```cmd
+            sudo systemctl daemon-reload
+            sudo systemctl restart algoz.service
+
+            ```
+
+        * Service Status:
+
+            Paste in Terminal Session the following command
+            ```cmd
+            systemctl status algoz.service
+
+            ```
+
+
 
 </details>
 
@@ -110,7 +140,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
 * Copy-Paste the following comands: 
     ```cmd
-    powershell -command "Invoke-WebRequest -Uri https://raw.githubusercontent.com/pauloavila88/algoz/dev/Executables/Windows/algoz.install.bat -OutFile ~\algoz_installer.bat"
+    powershell -command "Invoke-WebRequest -Uri https://raw.githubusercontent.com/pauloavila88/algoz/main/Executables/Windows/algoz.install.bat -OutFile ~\algoz_installer.bat"
     %UserProfile%\algoz_installer.bat
     del %UserProfile%\algoz_installer.bat
 
@@ -127,7 +157,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
 * Copy-Paste the following comands: 
     ```sh
-    wget https://raw.githubusercontent.com/pauloavila88/algoz/dev/Executables/Linux/algoz.install.sh -O ~/algoz_installer.sh
+    wget https://raw.githubusercontent.com/pauloavila88/algoz/main/Executables/Linux/algoz.install.sh -O ~/algoz_installer.sh
     bash ~/algoz_installer.sh
     rm -r ~/algoz_installer.sh
 
