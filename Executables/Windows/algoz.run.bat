@@ -1,9 +1,5 @@
-@REM Go to Project Folder
-call cd %UserProfile%\Algoz
-@REM Activate Conda Virtual Environment
-call %UserProfile%\miniconda3\condabin\conda activate ./env
 @REM Run ZapCrawler
-call python cli.py ui --host 0.0.0.0 --port 80
+call %UserProfile%\Algoz\env\python %UserProfile%\Algoz\cli.py ui --host 127.0.0.1 --port 80
 @REM Inform Crawl Finish
 call echo Algoz Finished !
 PAUSE
