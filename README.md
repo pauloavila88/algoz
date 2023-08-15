@@ -1,3 +1,104 @@
+# About Algoz
+
+WebCrawl [ZAP](https://zapimoveis.com.br/) into a Google Sheet with a dedicated User Interface:
+![Teaser](Teaser.PNG)
+
+# Oracle Cloud Server
+<details>
+    <summary><h2>SSH client Connection</h2></summary>
+
+Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cross platform):
+
+<details>
+    <summary><h3>Connect to File Session</h3></summary>
+
+![PortX_FileSession-1](PortX-Walkthrough/PortX_FileSession-1.png)
+
+![PortX_FileSession-2](PortX-Walkthrough/PortX_FileSession-2.png)
+
+![PortX_FileSession-3](PortX-Walkthrough/PortX_FileSession-3.png)
+
+![PortX_FileSession-4](PortX-Walkthrough/PortX_FileSession-4.png)
+
+![PortX_FileSession-5](PortX-Walkthrough/PortX_FileSession-5.png)
+
+![PortX_FileSession-6](PortX-Walkthrough/PortX_FileSession-6.png)
+
+![PortX_FileSession-8](PortX-Walkthrough/PortX_FileSession-8.png)
+
+![PortX_FileSession-9](PortX-Walkthrough/PortX_FileSession-9.png)
+
+![PortX_FileSession-10](PortX-Walkthrough/PortX_FileSession-10.png)
+
+![PortX_FileSession-11](PortX-Walkthrough/PortX_FileSession-11.png)
+
+![PortX_FileSession-12](PortX-Walkthrough/PortX_FileSession-12.png)
+
+![PortX_FileSession-13](PortX-Walkthrough/PortX_FileSession-13.png)
+
+![PortX_FileSession-14](PortX-Walkthrough/PortX_FileSession-14.png)
+
+![PortX_FileSession-15](PortX-Walkthrough/PortX_FileSession-15.png)
+</details>
+
+<details>
+    <summary><h3>Connect to Terminal Session</h3></summary>
+
+![PortX_FileSession-1](PortX-Walkthrough/PortX_FileSession-1.png)
+
+![PortX_FileSession-2](PortX-Walkthrough/PortX_FileSession-2.png)
+
+![PortX_FileSession-3](PortX-Walkthrough/PortX_FileSession-3.png)
+
+![PortX_TerminalSession-4](PortX-Walkthrough/PortX_TerminalSession-4.png)
+
+![PortX_TerminalSession-5](PortX-Walkthrough/PortX_TerminalSession-5.png)
+
+![PortX_TerminalSession-6](PortX-Walkthrough/PortX_TerminalSession-6.png)
+
+![PortX_TerminalSession-8](PortX-Walkthrough/PortX_TerminalSession-8.png)
+
+![PortX_TerminalSession-9](PortX-Walkthrough/PortX_TerminalSession-9.png)
+
+![PortX_TerminalSession-10](PortX-Walkthrough/PortX_TerminalSession-10.png)
+</details>
+</details>
+
+<details>
+    <summary><h2>Web App Deploy</h2></summary>
+
+1. Connect to Terminal Session
+
+    * Shell Scripts for Web App Deploy:
+
+        Paste in Terminal Session the following command
+        ```cmd
+        sudo vi /home/ubuntu/Algoz/Executables/Linux/algoz.run.service.sh
+        ```
+
+    * Systemctl Service of Web App:
+    
+        Paste in Terminal Session the following command
+        ```cmd
+        sudo vi /lib/systemd/system/algoz.service
+        ```
+
+</details>
+
+<details>
+    <summary><h2>Edit Server Background Images</h2></summary>
+
+1. Connect to File Session
+
+2. Go to this path:
+    ```path
+    /home/ubuntu/Algoz/server/ui/build/static/bck-ground-imgs
+    ```
+
+    ![Change-BckImgs](PortX-Walkthrough/Change-BckImgs.PNG)
+
+</details>
+
 # Instalation
 <details>
     <summary><h2>Windows</h2></summary>
