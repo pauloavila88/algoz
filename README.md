@@ -1,7 +1,7 @@
 # About Algoz
 
 WebCrawl [ZAP](https://zapimoveis.com.br/) into a Google Sheet with a dedicated User Interface:
-![Teaser](Teaser.PNG)
+![Teaser](readme-imgs/Teaser.PNG)
 
 # Oracle Cloud Server
 <details>
@@ -9,58 +9,60 @@ WebCrawl [ZAP](https://zapimoveis.com.br/) into a Google Sheet with a dedicated 
 
 Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cross platform):
 
+[![PortX_Download](readme-imgs/PortX-Walkthrough/PortX_Download.png)](https://portx.online/en/download/)
+
 <details>
     <summary><h3>Connect to File Session</h3></summary>
 
-![PortX_FileSession-1](PortX-Walkthrough/PortX_FileSession-1.png)
+![PortX_FileSession-1](readme-imgs/PortX-Walkthrough/PortX_FileSession-1.png)
 
-![PortX_FileSession-2](PortX-Walkthrough/PortX_FileSession-2.png)
+![PortX_FileSession-2](readme-imgs/PortX-Walkthrough/PortX_FileSession-2.png)
 
-![PortX_FileSession-3](PortX-Walkthrough/PortX_FileSession-3.png)
+![PortX_FileSession-3](readme-imgs/PortX-Walkthrough/PortX_FileSession-3.png)
 
-![PortX_FileSession-4](PortX-Walkthrough/PortX_FileSession-4.png)
+![PortX_FileSession-4](readme-imgs/PortX-Walkthrough/PortX_FileSession-4.png)
 
-![PortX_FileSession-5](PortX-Walkthrough/PortX_FileSession-5.png)
+![PortX_FileSession-5](readme-imgs/PortX-Walkthrough/PortX_FileSession-5.png)
 
-![PortX_FileSession-6](PortX-Walkthrough/PortX_FileSession-6.png)
+![PortX_FileSession-6](readme-imgs/PortX-Walkthrough/PortX_FileSession-6.png)
 
-![PortX_FileSession-8](PortX-Walkthrough/PortX_FileSession-8.png)
+![PortX_FileSession-8](readme-imgs/PortX-Walkthrough/PortX_FileSession-8.png)
 
 ![PortX_FileSession-9](PortX-Walkthrough/PortX_FileSession-9.png)
 
-![PortX_FileSession-10](PortX-Walkthrough/PortX_FileSession-10.png)
+![PortX_FileSession-10](readme-imgs/PortX-Walkthrough/PortX_FileSession-10.png)
 
-![PortX_FileSession-11](PortX-Walkthrough/PortX_FileSession-11.png)
+![PortX_FileSession-11](readme-imgs/PortX-Walkthrough/PortX_FileSession-11.png)
 
-![PortX_FileSession-12](PortX-Walkthrough/PortX_FileSession-12.png)
+![PortX_FileSession-12](readme-imgs/PortX-Walkthrough/PortX_FileSession-12.png)
 
-![PortX_FileSession-13](PortX-Walkthrough/PortX_FileSession-13.png)
+![PortX_FileSession-13](readme-imgs/PortX-Walkthrough/PortX_FileSession-13.png)
 
-![PortX_FileSession-14](PortX-Walkthrough/PortX_FileSession-14.png)
+![PortX_FileSession-14](readme-imgs/PortX-Walkthrough/PortX_FileSession-14.png)
 
-![PortX_FileSession-15](PortX-Walkthrough/PortX_FileSession-15.png)
+![PortX_FileSession-15](readme-imgs/PortX-Walkthrough/PortX_FileSession-15.png)
 </details>
 
 <details>
     <summary><h3>Connect to Terminal Session</h3></summary>
 
-![PortX_FileSession-1](PortX-Walkthrough/PortX_FileSession-1.png)
+![PortX_FileSession-1](readme-imgs/PortX-Walkthrough/PortX_FileSession-1.png)
 
-![PortX_FileSession-2](PortX-Walkthrough/PortX_FileSession-2.png)
+![PortX_FileSession-2](readme-imgs/PortX-Walkthrough/PortX_FileSession-2.png)
 
-![PortX_FileSession-3](PortX-Walkthrough/PortX_FileSession-3.png)
+![PortX_FileSession-3](readme-imgs/PortX-Walkthrough/PortX_FileSession-3.png)
 
-![PortX_TerminalSession-4](PortX-Walkthrough/PortX_TerminalSession-4.png)
+![PortX_TerminalSession-4](readme-imgs/PortX-Walkthrough/PortX_TerminalSession-4.png)
 
-![PortX_TerminalSession-5](PortX-Walkthrough/PortX_TerminalSession-5.png)
+![PortX_TerminalSession-5](readme-imgs/PortX-Walkthrough/PortX_TerminalSession-5.png)
 
-![PortX_TerminalSession-6](PortX-Walkthrough/PortX_TerminalSession-6.png)
+![PortX_TerminalSession-6](readme-imgs/PortX-Walkthrough/PortX_TerminalSession-6.png)
 
-![PortX_TerminalSession-8](PortX-Walkthrough/PortX_TerminalSession-8.png)
+![PortX_TerminalSession-8](readme-imgs/PortX-Walkthrough/PortX_TerminalSession-8.png)
 
-![PortX_TerminalSession-9](PortX-Walkthrough/PortX_TerminalSession-9.png)
+![PortX_TerminalSession-9](readme-imgs/PortX-Walkthrough/PortX_TerminalSession-9.png)
 
-![PortX_TerminalSession-10](PortX-Walkthrough/PortX_TerminalSession-10.png)
+![PortX_TerminalSession-10](readme-imgs/PortX-Walkthrough/PortX_TerminalSession-10.png)
 </details>
 </details>
 
@@ -125,7 +127,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
     /home/ubuntu/Algoz/server/ui/build/static/bck-ground-imgs
     ```
 
-    ![Change-BckImgs](PortX-Walkthrough/Change-BckImgs.PNG)
+    ![Change-BckImgs](readme-imgs/PortX-Walkthrough/Change-BckImgs.PNG)
 
 </details>
 
@@ -171,20 +173,20 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
 * While instalation will be requested to insert Google Cloud APIs Credentials JSON file in a specific folder:
 
-    ![Credentials Request](G-APIS_client_secret.PNG)
+    ![Credentials Request](readme-imgs/G-APIS_client_secret.PNG)
 
 * Authenticate the Google Sheets/Drive that will be associated with App:
     * Get Google APIs Authorization Code:
 
-        ![Get Authorization Code](G-APIS_Get-AuthorizationCode.PNG)
+        ![Get Authorization Code](readme-imgs/G-APIS_Get-AuthorizationCode.PNG)
 
     * Set Google APIs Authorization Code:
 
-        ![Set Authorization Code](G-APIS_Set-AuthorizationCode.PNG)
+        ![Set Authorization Code](readme-imgs/G-APIS_Set-AuthorizationCode.PNG)
 
 
 * ***Instalation Completed:***
-    ![Instalation Completed](G-APIS_InstalationComplete.PNG)
+    ![Instalation Completed](readme-imgs/G-APIS_InstalationComplete.PNG)
 </details>
 
 # Run
