@@ -365,57 +365,65 @@ class ZapCrawler():
 
     # > LISTINGS
     def request_listings(self, search_input, _size="0", _page="1", _from="0", _retry=0):
-        utils = Utils.Utils()
-        api_url = "https://glue-api.zapimoveis.com.br/v2/listings"
-        
-        params = {
-            "categoryPage":search_input['categoryPage'],
-            "business":search_input['businessType'],
-            "listingType":search_input['listingType'],
-            "constructionStatus":search_input['constructionStatus'],
-            "addressType":search_input['addressType'],
-            "addressStreet":search_input['addressStreet'],
-            "addressNeighborhood":search_input['addressNeighborhood'],
-            "addressZone":search_input['addressZone'],
-            "addressCity":search_input['addressCity'],
-            "addressState":search_input['addressState'],
-            "addressLocationId":search_input['addressLocationId'],
-            "addressPointLat":search_input['addressPointLat'],
-            "addressPointLon":search_input['addressPointLon'],
-            "size":_size,
-            "page":_page,
-            "from":_from,
-            # "__zt": "mtc:deduplication",
-            "includeFields":"search(result(listings(listing(listingsCount,sourceId,displayAddressType,amenities,usableAreas,constructionStatus,listingType,description,title,stamps,createdAt,floors,unitTypes,nonActivationReason,providerId,propertyType,unitSubTypes,unitsOnTheFloor,legacyId,id,portal,unitFloor,parkingSpaces,updatedAt,address,suites,publicationType,externalId,bathrooms,usageTypes,totalAreas,advertiserId,advertiserContact,whatsappNumber,bedrooms,acceptExchange,pricingInfos,showPrice,resale,buildings,capacityLimit,status,priceSuggestion,contractType),account(id,name,logoUrl,licenseNumber,showAddress,legacyVivarealId,legacyZapId,createdDate,minisite,tier),medias,accountLink,link)),totalCount),page,facets,fullUriFragments,developments(search(result(listings(listing(listingsCount,sourceId,displayAddressType,amenities,usableAreas,constructionStatus,listingType,description,title,stamps,createdAt,floors,unitTypes,nonActivationReason,providerId,propertyType,unitSubTypes,unitsOnTheFloor,legacyId,id,portal,unitFloor,parkingSpaces,updatedAt,address,suites,publicationType,externalId,bathrooms,usageTypes,totalAreas,advertiserId,advertiserContact,whatsappNumber,bedrooms,acceptExchange,pricingInfos,showPrice,resale,buildings,capacityLimit,status,priceSuggestion,contractType),account(id,name,logoUrl,licenseNumber,showAddress,legacyVivarealId,legacyZapId,createdDate,minisite,tier),medias,accountLink,link)),totalCount))",
-        }
-        if search_input['unit_type'] != {}:
-            for k,v in search_input['unit_type'].items():
-                params[k] = v
+        try:
+            utils = Utils.Utils()
+            api_url = "https://glue-api.zapimoveis.com.br/v2/listings"
+            
+            params = {
+                "categoryPage":search_input['categoryPage'],
+                "business":search_input['businessType'],
+                "listingType":search_input['listingType'],
+                "constructionStatus":search_input['constructionStatus'],
+                "addressType":search_input['addressType'],
+                "addressStreet":search_input['addressStreet'],
+                "addressNeighborhood":search_input['addressNeighborhood'],
+                "addressZone":search_input['addressZone'],
+                "addressCity":search_input['addressCity'],
+                "addressState":search_input['addressState'],
+                "addressLocationId":search_input['addressLocationId'],
+                "addressPointLat":search_input['addressPointLat'],
+                "addressPointLon":search_input['addressPointLon'],
+                "size":_size,
+                "page":_page,
+                "from":_from,
+                # "__zt": "mtc:deduplication",
+                "includeFields":"search(result(listings(listing(listingsCount,sourceId,displayAddressType,amenities,usableAreas,constructionStatus,listingType,description,title,stamps,createdAt,floors,unitTypes,nonActivationReason,providerId,propertyType,unitSubTypes,unitsOnTheFloor,legacyId,id,portal,unitFloor,parkingSpaces,updatedAt,address,suites,publicationType,externalId,bathrooms,usageTypes,totalAreas,advertiserId,advertiserContact,whatsappNumber,bedrooms,acceptExchange,pricingInfos,showPrice,resale,buildings,capacityLimit,status,priceSuggestion,contractType),account(id,name,logoUrl,licenseNumber,showAddress,legacyVivarealId,legacyZapId,createdDate,minisite,tier),medias,accountLink,link)),totalCount),page,facets,fullUriFragments,developments(search(result(listings(listing(listingsCount,sourceId,displayAddressType,amenities,usableAreas,constructionStatus,listingType,description,title,stamps,createdAt,floors,unitTypes,nonActivationReason,providerId,propertyType,unitSubTypes,unitsOnTheFloor,legacyId,id,portal,unitFloor,parkingSpaces,updatedAt,address,suites,publicationType,externalId,bathrooms,usageTypes,totalAreas,advertiserId,advertiserContact,whatsappNumber,bedrooms,acceptExchange,pricingInfos,showPrice,resale,buildings,capacityLimit,status,priceSuggestion,contractType),account(id,name,logoUrl,licenseNumber,showAddress,legacyVivarealId,legacyZapId,createdDate,minisite,tier),medias,accountLink,link)),totalCount))",
+            }
+            if search_input['unit_type'] != {}:
+                for k,v in search_input['unit_type'].items():
+                    params[k] = v
 
-        if "sort" in search_input:
-            params["sort"] = search_input["sort"]
-        
-        print("Incoming Request:", json.dumps(params, indent=2))
+            if "sort" in search_input:
+                params["sort"] = search_input["sort"]
+            
+            print("Incoming Request:", json.dumps(params, indent=2))
 
-        headers=self.headers
-        headers["x-domain"] = "www.zapimoveis.com.br"
+            headers=self.headers
+            headers["x-domain"] = "www.zapimoveis.com.br"
 
-        # Request Data
-        for _ in range(_retry if _retry>0 else 1):
-            res = requests.request("GET", api_url, headers=self.headers, params=params)
-            if res.status_code == 200:
-                # print(f"[ DEBUG ] -> Listing Request:\Response={json.dumps(res.json(), indent=2)}")
-                break
-            utils.wait(_time=0.7, _rand=True)
-
-        return res.json()
+            # Request Data
+            for _ in range(_retry if _retry>0 else 1):
+                res = requests.request("GET", api_url, headers=self.headers, params=params)
+                if res.status_code == 200:
+                    # print(f"[ DEBUG ] -> Listing Request:\Response={json.dumps(res.json(), indent=2)}")
+                    break
+                utils.wait(_time=0.7, _rand=True)
+            return res.json()
+        except Exception as e:
+            print(f"[ WARNING ] request_listings Exception: {e}")
+            return {"err": e}
     
     def parse_listings_totalCount(self, listings_input):
-        return {
-            # "listings": listings_input["search"]["result"]["listings"] if self.utils.keys_exists(listings_input, 'search', 'result', 'listings') else ',   # Since _size=0 listings will be an empty array [] -> No need to return it
-            "amenities": listings_input["facets"]["amenities"] if self.utils.keys_exists(listings_input, 'facets', 'amenities') else '',
-            "totalCount": listings_input["search"]["totalCount"] if self.utils.keys_exists(listings_input, 'search', 'totalCount') else ''
-        }
+        try:
+            return {
+                # "listings": listings_input["search"]["result"]["listings"] if self.utils.keys_exists(listings_input, 'search', 'result', 'listings') else ',   # Since _size=0 listings will be an empty array [] -> No need to return it
+                "amenities": listings_input["facets"]["amenities"] if self.utils.keys_exists(listings_input, 'facets', 'amenities') else '',
+                "totalCount": listings_input["search"]["totalCount"] if self.utils.keys_exists(listings_input, 'search', 'totalCount') else ''
+            }
+        except Exception as e:
+                print(f"[ WARNING ] parse_listings_totalCount Exception: {e}")
+                return {"err": e}
+    
     
     def parse_link(self, href):
         return f'https://www.zapimoveis.com.br{href}'
@@ -460,8 +468,8 @@ class ZapCrawler():
 
     def parse_listing_price(self, priceInfos, businessType):
         for priceInfo in priceInfos:
-            if priceInfo['businessType'] == businessType:
-                return priceInfo['price']
+            if self.utils.keys_exists(priceInfo, 'businessType') and priceInfo['businessType'] == businessType:
+                return priceInfo['price'] if self.utils.keys_exists(priceInfo, 'price') else ''
         return ''
 
     def parse_listings_possibilities(self, listings_input):
@@ -501,15 +509,15 @@ class ZapCrawler():
                     'whatsappNumber':listing['listing']['whatsappNumber' if self.utils.keys_exists(listing, 'listing', 'whatsappNumber') else '']
                 }
             })
-        # print(json.dumps({'debug':partial_listings}, indent=2))
         
         return  partial_listings
 
     def parse_listings(self, listings_input, businessType):
-        partial_listings = []
-        listings = listings_input["search"]["result"]["listings"]
-        for listing in listings:
-            _parsed_listing = {
+        try:
+            partial_listings = []
+            listings = listings_input["search"]["result"]["listings"]
+            for listing in listings:
+                _parsed_listing = {
                     'timestamp': dt.now(),
                     'address': self.parse_listing_address(listing),
                     'area': listing['listing']['usableAreas'][0] if self.utils.keys_exists(listing, 'listing', 'usableAreas') and len(listing['listing']['usableAreas'])>0 else '',
@@ -519,13 +527,14 @@ class ZapCrawler():
                     'tag': listing['link']['name'] if self.utils.keys_exists(listing, 'link', 'name') else '',
                     'description': listing['listing']['description'] if self.utils.keys_exists(listing, 'listing', 'description') else '',
                     'price': self.parse_listing_price(listing['listing']['pricingInfos'], businessType) if self.utils.keys_exists(listing, 'listing', 'pricingInfos') and len(listing['listing']['pricingInfos'])>0 else '',
-                    'image': json.dumps([ self.parse_image_link(value['url']) for value in listing['medias'] if self.utils.keys_exists(value, 'url') and  self.utils.keys_exists(value, 'type') and value['type'] == 'IMAGE']) ,
+                    'image': json.dumps([ self.parse_image_link(value['url']) for value in listing['medias'] if self.utils.keys_exists(value, 'url') and self.utils.keys_exists(value, 'type') and value['type'] == 'IMAGE']) ,
                     'link': self.parse_link(listing['link']['href']) if self.utils.keys_exists(listing, 'link', 'href') else ''
                 }
-            
-            partial_listings.append(_parsed_listing)
-            
-        return  partial_listings
+                partial_listings.append(_parsed_listing)
+            return  partial_listings
+        except Exception as e:
+            print(f"[ WARNING ] parse_listings Exception: {e}")
+            return {"err": e}
 
     def get_listings(self, search_input, _retry=0):
         try:
@@ -533,6 +542,7 @@ class ZapCrawler():
             if search_input['ammount'] == '0':
                 lis_req = self.request_listings(search_input, _retry=_retry)
                 if "err" in lis_req:
+                    print(f"[ WARNING ] Error on request_listing: {json.dumps(lis_req, indent=2)}")
                     return lis_req
                 return self.parse_listings_totalCount(lis_req)
             
@@ -545,12 +555,17 @@ class ZapCrawler():
             _pages_retry=self.MAX_RETRIES
             while True:
                 size = LISTINGS_API_MAX_SIZE if _ammount - _from  > LISTINGS_API_MAX_SIZE else _ammount - _from
-                lis_req = self.request_listings(search_input, _size=str(size), _page=str(_page_counter), _from=str(_from), _retry=_retry)
                 self.utils.wait(_time=0.5, _rand=True)
+
+                lis_req = self.request_listings(search_input, _size=str(size), _page=str(_page_counter), _from=str(_from), _retry=_retry)
                 if "err" in lis_req:
+                    print(f"[ WARNING ] Error on request_listing: {json.dumps(lis_req, indent=2)}")
                     return lis_req
                 
                 parsed_listings = self.parse_listings(lis_req, search_input['businessType'])
+                if "err" in parsed_listings:
+                    print(f"[ WARNING ] Error on parse_listings: {json.dumps(lis_req, indent=2)}")
+                    return parsed_listings
                 
                 if len(parsed_listings) == 0:
                     _page_counter += 1
