@@ -87,7 +87,7 @@ class Handler:
             return listings_res
         
         @router.post("/bckimages")
-        async def get_listings():
+        async def get_bckimages():
             current_path = os.path.dirname(os.path.realpath(__file__))
             images_dir = os.path.join(current_path, "ui", "build", "static", "bck-ground-imgs")
             return os.listdir(images_dir)
