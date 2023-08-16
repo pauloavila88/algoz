@@ -143,8 +143,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 * Copy-Paste the following comands: 
     ```cmd
     powershell -command "Invoke-WebRequest -Uri https://raw.githubusercontent.com/pauloavila88/algoz/main/Executables/Windows/algoz.install.bat -OutFile ~\algoz_installer.bat"
-    %UserProfile%\algoz_installer.bat
-    del %UserProfile%\algoz_installer.bat
+    %UserProfile%\algoz_installer.bat && del %UserProfile%\algoz_installer.bat
 
     ```
 
@@ -160,8 +159,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 * Copy-Paste the following comands: 
     ```sh
     wget https://raw.githubusercontent.com/pauloavila88/algoz/main/Executables/Linux/algoz.install.sh -O ~/algoz_installer.sh
-    bash ~/algoz_installer.sh
-    rm -r ~/algoz_installer.sh
+    bash ~/algoz_installer.sh && rm -r ~/algoz_installer.sh
 
     ```
 
