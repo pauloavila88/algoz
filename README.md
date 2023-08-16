@@ -28,7 +28,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
 ![PortX_FileSession-8](readme-imgs/PortX-Walkthrough/PortX_FileSession-8.png)
 
-![PortX_FileSession-9](PortX-Walkthrough/PortX_FileSession-9.png)
+![PortX_FileSession-9](readme-imgs/PortX-Walkthrough/PortX_FileSession-9.png)
 
 ![PortX_FileSession-10](readme-imgs/PortX-Walkthrough/PortX_FileSession-10.png)
 
