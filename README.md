@@ -40,20 +40,20 @@
 
 * While instalation will be requested to insert Google Cloud APIs Credentials JSON file in a specific folder:
 
-    ![Credentials Request](G-APIS_client_secret.PNG)
+    ![Credentials Request](readme-imgs/G-APIS_client_secret.PNG)
 
 * Authenticate the Google Sheets/Drive that will be associated with App:
     * Get Google APIs Authorization Code:
 
-        ![Get Authorization Code](G-APIS_Get-AuthorizationCode.PNG)
+        ![Get Authorization Code](readme-imgs/G-APIS_Get-AuthorizationCode.PNG)
 
     * Set Google APIs Authorization Code:
 
-        ![Set Authorization Code](G-APIS_Set-AuthorizationCode.PNG)
+        ![Set Authorization Code](readme-imgs/G-APIS_Set-AuthorizationCode.PNG)
 
 
 * ***Instalation Completed:***
-    ![Instalation Completed](G-APIS_InstalationComplete.PNG)
+    ![Instalation Completed](readme-imgs/G-APIS_InstalationComplete.PNG)
 </details>
 
 # Run
