@@ -66,6 +66,8 @@ fi
 
 # Clone Repository
 git clone --branch main https://github.com/pauloavila88/algoz.git .
+# Systemctl Service file CHMOD edit (Execute Permission)
+sudo chmod +x ~/Algoz/Executables/Linux/algoz.run.service.sh
 # Create/Activate Conda Virtual Environment
 echo Current DIR : "$PWD"
 source $HOME/miniconda3/bin/activate
