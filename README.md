@@ -131,6 +131,21 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
 </details>
 
+<details>
+    <summary><h2>Edit Google Cloud APIs Credentials</h2></summary>
+
+1. Connect to Terminal Session
+
+2. Paste in Terminal Session the following command
+    ```cmd
+    bash ~/Algoz/Executables/Linux/algoz.gapi.install.sh
+
+    ```
+
+3. Follow the steps in [Google APIs Authorization](#instalation)
+
+</details>
+
 # Instalation
 <details>
     <summary><h2>Windows</h2></summary>
