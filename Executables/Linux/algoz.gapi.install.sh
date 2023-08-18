@@ -7,7 +7,7 @@ if ( -d "~/Algoz/crawler/confidential" );
 then
     rm -r ~/Algoz/crawler/confidential
 fi
-mnkdir ~/Algoz/crawler/confidential
+mkdir ~/Algoz/crawler/confidential
 echo [ WARNING ] - Before continuing insert the provided { client_secret.json } file in this folder: $HOME/Algoz/crawler/confidential
 printf 'press [ENTER] to continue ...'
 read _
