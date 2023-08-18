@@ -2,7 +2,7 @@
 PROJ_DIR=~/Algoz
 
 # Re-instalation Check
-if [ -d "$PROJ_DIR" ]; then
+if ( test -d "$PROJ_DIR" ); then
     rm -r ${PROJ_DIR}
 fi
 # Create/Move to Project Folder

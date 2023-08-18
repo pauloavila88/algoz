@@ -2,11 +2,11 @@
 PROJ_DIR=~/Algoz
 
 # Delete Project Folder
-if [ -d "$PROJ_DIR" ]; then
+if ( test -d "$PROJ_DIR" ); then
     rm -r ${PROJ_DIR}
 fi
 # Inform Uninstall Completed
-if !( -d "$PROJ_DIR" ); then
+if !( test -d "$PROJ_DIR" ); then
     echo Algoz Uninstaled!
 fi
 printf 'press [ENTER] to exit ...'
