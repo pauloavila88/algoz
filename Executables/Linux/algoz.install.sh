@@ -75,15 +75,7 @@ conda activate ./env
 # Install required Libraries
 pip install -r requirements.txt
 # Get Google Cloud Credentials
-if !( -d "~/Algoz/crawler/confidential" ); 
-then
-    mkdir ~/Algoz/crawler/confidential
-fi
-echo [ WARNING ] - Before continuing insert the provided { client_secret.json } file in this folder: $HOME/Algoz/crawler/confidential
-printf 'press [ENTER] to continue ...'
-read _
-python3 ~/Algoz/crawler/authorize_pygsheets.py
-mv ./sheets.googleapis.com-python.json ~/Algoz/crawler/confidential
+bash ~/Algoz/Executables/Linux/algoz.gapi.install.sh
 
 # Inform Instalation Completed
 echo Algoz Instalation Completed!
