@@ -5,7 +5,7 @@ cd ${PROJ_DIR}
 # Get Google Cloud Credentials
 if ( -d "~/Algoz/crawler/confidential" ); 
 then
-    rm -r -q ~/Algoz/crawler/confidential
+    rm -r ~/Algoz/crawler/confidential
 fi
 mnkdir ~/Algoz/crawler/confidential
 echo [ WARNING ] - Before continuing insert the provided { client_secret.json } file in this folder: $HOME/Algoz/crawler/confidential
