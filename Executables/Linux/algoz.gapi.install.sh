@@ -3,30 +3,45 @@ PROJ_DIR=~/Algoz
 cd ${PROJ_DIR}
 
 # Get Google Cloud Credentials
-if ( test -d "~/Algoz/crawler/confidential" ); 
+if [ ! -d "$HOME/Algoz/crawler/confidential" ]; 
 then
-    rm -r ~/Algoz/crawler/confidential
+    echo Credentials Folder does not exist. Creating "$HOME/Algoz/crawler/confidential"...
+    mkdir ~/Algoz/crawler/confidential
+else
+    echo Credentials Folder does exist!
 fi
-mkdir ~/Algoz/crawler/confidential
-echo [ WARNING ] - Before continuing insert the provided { client_secret.json } file in this folder: $HOME/Algoz/crawler/confidential
-printf 'press [ENTER] to continue ...'
-read _
-echo EXISTS $HOME/Algoz/crawler/confidential/client_secret.json ??
-if ( test -e "$HOME/Algoz/crawler/confidential/client_secret.json" ); 
+
+if [ -e "$HOME/Algoz/crawler/confidential/sheets.googleapis.com-python.json" ]; 
 then
+    echo Renew Google API credentials!
+    rm ~/Algoz/crawler/confidential/sheets.googleapis.com-python.json
+else
+    echo Google API credentials does not exist!
+fi
+
+if [ ! -e "$HOME/Algoz/crawler/confidential/client_secret.json" ]; then
+    echo [ WARNING ] - Before continuing insert the provided { client_secret.json } file in this folder: $HOME/Algoz/crawler/confidential
+    printf 'press [ENTER] to continue ...'
+    read _
+fi
+
+if [ -e "$HOME/Algoz/crawler/confidential/client_secret.json" ]; then
     ~/Algoz/env/bin/python ~/Algoz/crawler/authorize_pygsheets.py
-    if ( test -e "$HOME/Algoz/sheets.googleapis.com-python.json" );
+    if [ -e "$HOME/Algoz/sheets.googleapis.com-python.json" ];
     then
         mv ./sheets.googleapis.com-python.json ~/Algoz/crawler/confidential
         printf 'Google Cloud Credentials Authorized !'
-        sleep 5
+        printf 'press [ENTER] to continue ...'
+        read _
     else
         echo [ WARNING ] - Something went wrong while Authorizing Google Cloud APIs!
         echo Retry running $HOME/Algoz/Executables/Linux/algoz.gapi.install.sh
-        sleep 5
+        printf 'press [ENTER] to continue ...'
+        read _
     fi
 else
     echo [ WARNING ] - File { client_secret.json } not added into $HOME/Algoz/crawler/confidential!
     echo Retry running $HOME/Algoz/Executables/Linux/algoz.gapi.install.sh
-    sleep 5
+    printf 'press [ENTER] to continue ...'
+    read _
 fi
