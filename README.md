@@ -4,14 +4,14 @@ WebCrawl [ZAP](https://zapimoveis.com.br/) into a Google Sheet with a dedicated 
 ![Teaser](readme-imgs/Teaser.PNG)
 
 # Oracle Cloud Server
-<details>
+<details open>
     <summary><h2>SSH client Connection</h2></summary>
 
 Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cross platform):
 
 [![PortX_Download](readme-imgs/PortX-Walkthrough/PortX_Download.png)](https://portx.online/en/download/)
 
-<details>
+<details open>
     <summary><h3>Connect to File Session</h3></summary>
 
 ![PortX_FileSession-1](readme-imgs/PortX-Walkthrough/PortX_FileSession-1.png)
@@ -43,7 +43,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 ![PortX_FileSession-15](readme-imgs/PortX-Walkthrough/PortX_FileSession-15.png)
 </details>
 
-<details>
+<details open>
     <summary><h3>Connect to Terminal Session</h3></summary>
 
 ![PortX_FileSession-1](readme-imgs/PortX-Walkthrough/PortX_FileSession-1.png)
@@ -66,10 +66,10 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 </details>
 </details>
 
-<details>
+<details open>
     <summary><h2>Web App Deploy</h2></summary>
 
-1. Connect to Terminal Session
+1. Enter in [Terminal Session](https://github.com/pauloavila88/algoz/blob/main/readme-imgs/PortX-Walkthrough/PortX_TerminalSession-9.png), [more info](#connect-to-terminal-session).
 
     * Shell Scripts for Web App Deploy:
 
@@ -117,10 +117,10 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
 </details>
 
-<details>
+<details open>
     <summary><h2>Edit Server Background Images</h2></summary>
 
-1. Connect to File Session
+1. Enter in [File Session](https://github.com/pauloavila88/algoz/blob/main/readme-imgs/PortX-Walkthrough/PortX_TerminalSession-9.png), [more info](#connect-to-file-session).
 
 2. Go to this path:
     ```path
@@ -131,10 +131,10 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
 </details>
 
-<details>
+<details open>
     <summary><h2>Edit Google Cloud APIs Credentials</h2></summary>
 
-1. Connect to Terminal Session
+1. Enter in [Terminal Session](https://github.com/pauloavila88/algoz/blob/main/readme-imgs/PortX-Walkthrough/PortX_TerminalSession-9.png), [more info](#connect-to-terminal-session).
 
 2. Paste in Terminal Session the following command
     ```cmd
@@ -147,7 +147,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 </details>
 
 # Instalation
-<details>
+<details open>
     <summary><h2>Windows</h2></summary>
 
 * Go to CMD (command prompt):
@@ -162,10 +162,10 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
     ```
 
-* Take a loot at `Google APIs Authorization`
+* Take a loot at [Google APIs Authorization](#google-apis-authorization)
 </details>
 
-<details>
+<details open>
     <summary><h2>Linux</h2></summary>
 
 * Go to CMD (command prompt):
@@ -178,10 +178,10 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
     ```
 
-* Take a loot at `Google APIs Authorization`
+* Take a loot at [Google APIs Authorization](#google-apis-authorization)
 </details>
 
-<details>
+<details open>
     <summary><h2>Google APIs Authorization</h2></summary>
 
 * While instalation will be requested to insert Google Cloud APIs Credentials JSON file in a specific folder:
@@ -203,7 +203,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 </details>
 
 # Run
-<details>
+<details open>
     <summary><h2>Windows</h2></summary>
 
 * Go to CMD (command prompt):
@@ -217,7 +217,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
     ```
 </details>
-<details>
+<details open>
     <summary><h2>Linux</h2></summary>
 
 * Go to CMD (command prompt):
@@ -231,7 +231,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 </details>
 
 # Uninstall
-<details>
+<details open>
     <summary><h2>Windows</h2></summary>
 
 * Go to CMD (command prompt):
@@ -245,7 +245,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
     ```
 </details>
-<details>
+<details open>
     <summary><h2>Linux</h2></summary>
 
 * Go to CMD (command prompt):
