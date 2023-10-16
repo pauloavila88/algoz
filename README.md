@@ -142,7 +142,7 @@ Install a SSH Client Software, for example [PortX](https://portx.online/en/) (cr
 
     ```
 
-3. Follow the steps in [Google APIs Authorization](#instalation)
+3. Follow the steps in [Google APIs Authorization](#google-apis-authorization)
 
 </details>
 
