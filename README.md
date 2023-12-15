@@ -1,7 +1,8 @@
 # About Algoz
 
 WebCrawl [ZAP](https://zapimoveis.com.br/) into a Google Sheet with a dedicated User Interface:
-![Teaser](readme-imgs/Teaser.PNG)
+
+<video src="readme-imgs/Algoz_Presentation.mp4" controls title="Teaser"></video>
 
 # Oracle Cloud Server
 <details open>
